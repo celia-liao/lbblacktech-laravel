@@ -11,8 +11,8 @@ class TimelineEvent extends Model
 
     protected $fillable = [
         'pet_id', 'event_date', 'age_years', 'age_months', 'age_days',
-        'event_title', 'event_description', 'event_photo', 'event_type',
-        'display_order', 'is_visible'
+        'event_title', 'event_description', 'event_photo', 'background',
+        'original_image', 'event_type', 'display_order', 'is_visible'
     ];
 
     public function pet()

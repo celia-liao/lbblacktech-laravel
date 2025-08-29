@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 加入PetSeeder
         $this->call([
             PetSeeder::class,
+            WebsiteSettingSeeder::class,
+            WebsiteStyleSeeder::class,
+            PhotoGallerySeeder::class,
+            PetVideoSeeder::class,
+            TimelineEventSeeder::class,
+            LetterSeeder::class,
         ]);
     }
 }
