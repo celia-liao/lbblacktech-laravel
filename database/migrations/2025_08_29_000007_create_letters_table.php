@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('pet_id')->constrained('pets', 'pet_id')->onDelete('cascade')->comment('寵物ID');
             $table->text('letter_content')->comment('信件內容 (text)');
             $table->timestamps();
-            
+
             $table->unique('pet_id', 'uk_pet_id');
         });
     }

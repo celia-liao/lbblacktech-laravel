@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('display_order')->default(0)->comment('顯示順序');
             $table->boolean('is_active')->default(true)->comment('是否啟用');
             $table->timestamps();
-            
+
             $table->index(['pet_id', 'category'], 'idx_pet_category');
         });
     }
