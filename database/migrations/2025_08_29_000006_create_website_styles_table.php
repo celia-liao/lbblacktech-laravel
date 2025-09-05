@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('function_color', 20)->default('#C696A6')->comment('功能列顏色 (function_color)');
             $table->string('function_background_color', 50)->default('rgba(255, 220, 227, 0.9)')->comment('功能列背景顏色 (function_background)');
             $table->timestamps();
-            
+
             $table->unique('pet_id', 'uk_pet_id');
         });
     }
