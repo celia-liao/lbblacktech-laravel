@@ -1,0 +1,49 @@
+/* ===========================
+   毛孩紀念網站 - 共用樣式
+   =========================== */
+
+/* 這裡可以放置所有毛孩網站共用的 CSS 樣式 */
+/* 例如：字型載入、基本佈局、共用元件等 */
+
+/* 字型載入 */
+@font-face {
+  font-family: 'ChenYuluoyan-Thin';
+  src: url('./font/ChenYuluoyan-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GenSenRounded2TW-B';
+  src: url('./font/GenSenRounded2TW-B-subset.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GenSenRounded2TW-R';
+  src: url('./font/GenSenRounded2TW-R-subset.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 基本字型設定 */
+body {
+  font-family: 'GenSenRounded2TW-R', sans-serif;
+}
+
+/* 共用元件樣式 */
+.pet-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .pet-container {
+    padding: 0 10px;
+  }
+}

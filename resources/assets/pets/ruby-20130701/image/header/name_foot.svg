@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_圖層_1" data-name="圖層 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 354.38 324.35">
+  <path d="M185.32,157.83c-38.29-16.96-108.22,20.24-108.69,58.13-.47,37.82,28.06,20.48,66.35,37.45,38.29,16.96,44.62,49.74,72.31,23.98,27.75-25.81,8.32-102.6-29.97-119.56Z" fill="#ffc5ea"/>
+  <ellipse cx="74.88" cy="132.04" rx="39.72" ry="31.94" transform="translate(-68.26 182.56) rotate(-79.89)" fill="#ffc5ea"/>
+  <g>
+    <ellipse cx="165.69" cy="79.69" rx="43.95" ry="35.34" transform="translate(58.14 228.8) rotate(-79.89)" fill="#ffc5ea"/>
+    <ellipse cx="256.39" cy="119.87" rx="43.95" ry="35.34" transform="translate(4.81 249.54) rotate(-52.32)" fill="#ffc5ea"/>
+  </g>
+  <ellipse cx="276.67" cy="221.44" rx="39.72" ry="31.94" transform="translate(-67.69 305.07) rotate(-52.32)" fill="#ffc5ea"/>
+</svg>
