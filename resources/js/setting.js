@@ -25,7 +25,6 @@ function getImageBasePath() {
 async function fetchPetData() {
     try {
         const slug = getCurrentSlug();
-        console.log('正在獲取寵物資料，slug:', slug);
         
         const response = await fetch(`/api/pet-data/${slug}`);
         if (!response.ok) {
@@ -33,7 +32,6 @@ async function fetchPetData() {
         }
         
         const result = await response.json();
-        console.log('API 回應:', result);
         
         if (result.success) {
             return result.data;
@@ -41,7 +39,6 @@ async function fetchPetData() {
             throw new Error(result.message || 'API 回應錯誤');
         }
     } catch (error) {
-        console.error('獲取寵物資料失敗:', error);
         throw error;
     }
 }
@@ -71,7 +68,6 @@ async function getWebsiteStyle(data) {
     window.footer_background = data.website_style.footer_background;
     window.function_color = data.website_style.function_color;
     window.function_background = data.website_style.function_background;
-    console.log('window.footprint_all', window.footprint_all)
 }
 
 // 生命軌跡
@@ -192,7 +188,6 @@ async function getVideoGallery(data) {
         }
     })
 
-    console.log('bubble_videos', window.bubble_videos)
     
     window.bubble_videos = window.bubble_videos;
 }
@@ -235,30 +230,29 @@ async function initializePetWebsite() {
         await getPhotoGallery(data);
         await getPet(data);
         // API 完成後再載入外部模組
-        await import("https://lbblacktech.com/assets/js/photoswipe.umd.min.js?v=2025.04.15");
-        await import("https://lbblacktech.com/assets/js/photoswipe-lightbox.umd.min.js?v=2025.04.15");
-        await import("https://lbblacktech.com/assets/js/loading2.js?v=2025.04.15");
-        await import("https://lbblacktech.com/assets/js/day.js?v=2025.04.15");
-        await import("https://lbblacktech.com/assets/js/new-scroll.js?v=2025.06.27");
+        await import(window.PET_ASSETS.jsFiles.photoswipe);
+        await import(window.PET_ASSETS.jsFiles.photoswipeLightbox);
+        await import(window.PET_ASSETS.jsFiles.loading2);
+        await import(window.PET_ASSETS.jsFiles.day);
+        await import(window.PET_ASSETS.jsFiles.newScroll);
 
-        await import(`${window.PET_ASSETS.jsPath}/lifeSlides.js`);
-        await import(`${window.PET_ASSETS.jsPath}/main.js`);
+        await import(window.PET_ASSETS.jsFiles.lifeSlides);
+        await import(window.PET_ASSETS.jsFiles.main);
         
         // 等待一下确保 main.js 的事件监听器已经设置
         await new Promise(resolve => setTimeout(resolve, 100));
 
-        await import("https://lbblacktech.com/assets/js/video-or-img.js?v=2025.04.15");
-        await import(`${window.PET_ASSETS.jsPath}/bubble.js`);
-        await import(`${window.PET_ASSETS.jsPath}/svgColor.js`);
-        await import("https://lbblacktech.com/assets/js/footer-slogan.js?v=2025.05.07");
-        await import("https://lbblacktech.com/assets/js/utm.js?v=2025.06.27-2");
+        await import(window.PET_ASSETS.jsFiles.videoOrImg);
+        await import(window.PET_ASSETS.jsFiles.bubble);
+        await import(window.PET_ASSETS.jsFiles.svgColor);
+        await import(window.PET_ASSETS.jsFiles.footerSlogan);
+        await import(window.PET_ASSETS.jsFiles.utm);
         
         // 觸發生命軌跡事件
         setTimeout(() => {
             window.dispatchEvent(new CustomEvent('lifeSlidesReady'));
         }, 2000);
     } catch (err) {
-        console.error("初始化失敗:", err);
     }
 }
 

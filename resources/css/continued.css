@@ -1,0 +1,242 @@
+.footer-slogan {
+  gap: 15px !important;
+  padding-bottom: 10vw;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-slogan {
+    align-items: center !important;
+    padding-bottom: 30vw;
+  }
+
+  footer .slogan h2 {
+    position: relative !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* 日歷區塊 */
+.continued {
+  display: flex;
+  align-items: center;
+  gap: 65px;
+}
+
+/* 日歷 */
+.footer-calendar {
+  position: relative;
+  width: 340px;
+  height: 290px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-original,
+.calendar-again {
+  position: absolute;
+  width: 100%;
+}
+
+.calendar-original {
+  z-index: 2;
+  cursor: pointer;
+}
+
+.calendar-again {
+  display: none;
+}
+
+.calendar-original img,
+.calendar-again img {
+  width: 100%;
+}
+
+.fade-out {
+  animation: fadeAndTiltRightUp 0.8s ease forwards !important;
+  pointer-events: none;
+}
+
+@keyframes fadeAndTiltRightUp {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg) translate(0, 0);
+    transform-origin: bottom right;
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(40deg) translate(50px, -100px);
+    transform-origin: bottom right;
+  }
+}
+
+.fade-out.display-none {
+  display: none !important;
+}
+
+.footer-time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-49%) translateY(-30%);
+  font-size: 128px;
+  font-weight: bold;
+  font-family: 'Akshar', sans-serif;
+}
+
+.footer-conclusion {
+  width: 35vw;
+  min-width: 340px;
+  text-align: center;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: center center;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.footer-conclusion.show {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+footer .footer-slogan .footer-conclusion h2 .show-span {
+    font-family: "round" !important; 
+}
+
+.footer-conclusion h2 {
+  padding: 20px 0;
+  font-size: 60px !important;
+  letter-spacing: 0 !important;
+  line-height: 1.2 !important;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  font-weight: 500 !important
+}
+
+.footer-conclusion h2 span {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.footer-conclusion h2 span.show-span {
+  opacity: 1;
+}
+
+.ripple-effect-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ripple-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: ripple-loop 1.5s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ripple-loop {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+
+.ripple-hidden {
+  display: none;
+}
+
+#calendar-again-day-wrapper {
+  display: inline-block;
+}
+
+.calendar-plus {
+  position: absolute;
+  top: -0.4em;
+  left: -0.2em;
+  font-size: 0.5em;
+}
+
+@media screen and (max-width: 1280px) {
+  .footer-conclusion h2 {
+    font-size: 4.9lvw !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .continued {
+    gap: 30px;
+  }
+
+  .footer-calendar {
+    width: 280px;
+    height: 280px;
+  }
+
+  .footer-time {
+    font-size: 96px;
+  }
+
+  .ripple-circle {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-conclusion h2 {
+    padding: 10px 0;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    font-size: 6.5lvw !important;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .footer-slogan {
+    gap: 10px !important;
+  }
+
+  .continued {
+    gap: 10px;
+  }
+
+  .footer-calendar {
+    width: 200px;
+    height: 200px;
+  }
+
+  .footer-time {
+    font-size: 56px;
+  }
+
+  .ripple-circle {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.slogan-box,
+.continued {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.slogan-box.show,
+.continued.show {
+  opacity: 1;
+  transform: scaleY(1);
+}
