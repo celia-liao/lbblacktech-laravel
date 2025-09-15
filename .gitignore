@@ -24,3 +24,11 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+nova.license.json
+storage/telescope
+horizon.sqlite
+sail/*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+/public/vendor/nova

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PetVideoSeeder::class,
             TimelineEventSeeder::class,
             LetterSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }

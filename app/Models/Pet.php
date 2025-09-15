@@ -9,6 +9,8 @@ class Pet extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'pet_id';
+
     protected $fillable = [
         'pet_name', 'pet_type', 'breed', 'birth_date', 'death_date',
         'main_photo', 'website_slug', 'owner_name',
@@ -45,4 +47,16 @@ class Pet extends Model
     {
         return $this->hasMany(WebsiteAnalytics::class);
     }
+
+    public function letter()
+    {
+        return $this->hasOne(\App\Models\Letter::class, 'pet_id'); 
+    }
+
+    public function websiteSetting()
+    {
+        return $this->hasOne(\App\Models\WebsiteSetting::class, 'pet_id'); 
+    }
+
+
 }

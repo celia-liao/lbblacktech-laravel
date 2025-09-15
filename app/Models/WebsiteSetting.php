@@ -9,6 +9,8 @@ class WebsiteSetting extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'setting_id';
+
     protected $fillable = [
         'pet_id', 'theme_color', 'secondary_color', 'background_type',
         'background_value', 'font_family', 'font_size', 'layout_style',
@@ -22,6 +24,6 @@ class WebsiteSetting extends Model
 
     public function pet()
     {
-        return $this->belongsTo(Pet::class);
+        return $this->belongsTo(Pet::class, 'pet_id', 'pet_id');
     }
 }
