@@ -6,25 +6,24 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\HasOne;
-use Laravel\Nova\Fields\HasMany;
 
-class Pet extends Resource
+class TimelineEvent extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Pet>
+     * @var class-string<\App\Models\TimelineEvent>
      */
-    public static $model = \App\Models\Pet::class;
+    public static $model = \App\Models\TimelineEvent::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'pet_id';
+    public static $title = 'event_id';
 
     /**
      * The columns that should be searched.
@@ -32,7 +31,7 @@ class Pet extends Resource
      * @var array
      */
     public static $search = [
-        'pet_id',
+        'event_id',
     ];
 
     /**
@@ -43,23 +42,28 @@ class Pet extends Resource
     public function fields(NovaRequest $request): array
     {
         return [
-            ID::make('Pet ID', 'pet_id')->sortable(),
-            Text::make('Pet Name', 'pet_name')->sortable(),
-            Text::make('Website Slug', 'website_slug')->sortable(),
-            Text::make('Slogan', 'slogan')->sortable(),
-            Boolean::make('Is Active', 'is_active')->sortable(),
-
-            // ⭐ 掛載 Letter
-            HasOne::make('Letter', 'letter', \App\Nova\Letter::class),
-
-            // ⭐ 掛載 Website Setting
-            HasOne::make('Website Setting', 'websiteSetting', \App\Nova\WebsiteSetting::class),
-
-            // ⭐ 掛載 Website Style
-            HasOne::make('Website Style', 'websiteStyle', \App\Nova\WebsiteStyle::class),
-
-            // ⭐ 掛載 Timeline Event
-            HasMany::make('Timeline Event', 'timelineEvents', \App\Nova\TimelineEvent::class),
+            ID::make('Event ID', 'event_id')->sortable(),
+            Text::make('Age', 'age')->sortable(),
+            Text::make('Event Title', 'event_title')->sortable(),
+            Text::make('Event Description', 'event_description')->sortable(),
+            Image::make('Life Background', 'background')
+                ->disk('public')
+                ->thumbnail(fn($value, $disk, $model) => $model->getPetImageUrl($value, 'background'))
+                ->preview(fn($value, $disk, $model) => $model->getPetImageUrl($value, 'background')),
+        
+            Image::make('Event Photo', 'event_photo')
+                ->disk('public')
+                ->thumbnail(fn($value, $disk, $model) => $model->getPetImageUrl($value, 'photo'))
+                ->preview(fn($value, $disk, $model) => $model->getPetImageUrl($value, 'photo')),
+        
+            Image::make('Original Image', 'original_image')
+                ->disk('public')
+                ->thumbnail(fn($value, $disk, $model) => $model->getPetImageUrl($value, 'original'))
+                ->preview(fn($value, $disk, $model) => $model->getPetImageUrl($value, 'original')),
+                
+            Boolean::make('Is Ending', 'is_ending')->sortable(),
+            Boolean::make('Is Visible', 'is_visible')->sortable(),
+            Text::make('Display Order', 'display_order')->sortable(),
         ];
     }
 

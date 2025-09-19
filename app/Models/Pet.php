@@ -17,10 +17,10 @@ class Pet extends Model
         'owner_email', 'is_active'
     ];
 
-    // 定义与其他模型的关系
+    // 定義與其他模型的關聯
     public function timelineEvents()
     {
-        return $this->hasMany(TimelineEvent::class);
+        return $this->hasMany(TimelineEvent::class, 'pet_id', 'pet_id');
     }
 
     public function photoGalleries()
@@ -38,16 +38,6 @@ class Pet extends Model
         return $this->hasMany(VisitorMessage::class);
     }
 
-    public function websiteSettings()
-    {
-        return $this->hasOne(WebsiteSetting::class);
-    }
-
-    public function websiteAnalytics()
-    {
-        return $this->hasMany(WebsiteAnalytics::class);
-    }
-
     public function letter()
     {
         return $this->hasOne(\App\Models\Letter::class, 'pet_id'); 
@@ -56,6 +46,11 @@ class Pet extends Model
     public function websiteSetting()
     {
         return $this->hasOne(\App\Models\WebsiteSetting::class, 'pet_id'); 
+    }
+
+    public function websiteStyle()
+    {
+        return $this->hasOne(\App\Models\WebsiteStyle::class, 'pet_id'); 
     }
 
 

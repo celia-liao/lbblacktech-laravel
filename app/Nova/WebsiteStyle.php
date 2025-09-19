@@ -5,6 +5,8 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
 
 class WebsiteStyle extends Resource
 {
@@ -20,7 +22,7 @@ class WebsiteStyle extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'style_id';
 
     /**
      * The columns that should be searched.
@@ -28,7 +30,7 @@ class WebsiteStyle extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'style_id',
     ];
 
     /**
@@ -39,7 +41,22 @@ class WebsiteStyle extends Resource
     public function fields(NovaRequest $request): array
     {
         return [
-            ID::make()->sortable(),
+            ID::make('Style ID', 'style_id')->sortable(),
+            BelongsTo::make('Pet', 'pet', \App\Nova\Pet::class),
+            Text::make('Loading Color', 'loading_color')->sortable(),
+            Text::make('Cover Name Color', 'cover_name_color')->sortable(),
+            Text::make('Header Love Color', 'header_love_color')->sortable(),
+            Text::make('Header Footprint Color', 'header_footprint_color')->sortable(),
+            Text::make('Day Text Color', 'day_text_color')->sortable(),
+            Text::make('Title Color', 'title_color')->sortable(),
+            Text::make('Handshake Button Color', 'handshake_button_color')->sortable(),
+            Text::make('Videos Button Color', 'videos_button_color')->sortable(),
+            Text::make('Bubble Ball Color', 'bubble_ball_color')->sortable(),
+            Text::make('Bubble Background', 'bubble_background')->sortable(),
+            Text::make('Footprint Color', 'footprint_color')->sortable(),
+            Text::make('Footer Background Color', 'footer_background_color')->sortable(),
+            Text::make('Function Color', 'function_color')->sortable(),
+            Text::make('Function Background Color', 'function_background_color')->sortable(),
         ];
     }
 

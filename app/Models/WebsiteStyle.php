@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class WebsiteStyle extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'style_id';
     protected $fillable = [
         'pet_id',
         'loading_color',
@@ -26,4 +26,9 @@ class WebsiteStyle extends Model
         'function_color',
         'function_background_color',
     ];
+
+    public function pet()
+    {
+        return $this->belongsTo(Pet::class, 'pet_id', 'pet_id');
+    }
 }
