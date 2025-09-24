@@ -9,6 +9,7 @@ use App\Models\PhotoGallery;
 use App\Models\PetVideo;
 use App\Models\TimelineEvent;
 use App\Models\Letter;
+use App\Models\LifeSlide;
 use Illuminate\Http\JsonResponse;
 
 class PetDataController extends Controller
@@ -34,13 +35,13 @@ class PetDataController extends Controller
             ->orderBy('display_order')
             ->get();
         $letter = Letter::where('pet_id', $pet->pet_id)->first();
+        $lifeSlides = LifeSlide::where('pet_id', $pet->pet_id)->get();
 
         // 整理照片資料
         $photos = [
             'header' => $photoGalleries->where('photo_category', 'header')->pluck('photo_path')->toArray(),
             'bubble_small' => $photoGalleries->where('photo_category', 'bubble_small')->pluck('photo_path')->toArray(),
             'bubble_large' => $photoGalleries->where('photo_category', 'bubble_large')->pluck('photo_path')->toArray(),
-            'corridor' => $photoGalleries->where('photo_category', 'corridor')->pluck('photo_path')->toArray(),
         ];
 
         // 整理影片資料
@@ -82,6 +83,14 @@ class PetDataController extends Controller
             ];
         })->toArray();
 
+        // 整理生命軌跡資料
+        $lifeSlides = $lifeSlides->map(function($slide) {
+            return [
+                'life_slide_image' => $slide->life_slide_image,
+                'life_slide_video' => $slide->life_slide_video,
+            ];
+        })->toArray();
+
         // 組合完整資料
         $data = [
             'pet' => [
@@ -119,6 +128,7 @@ class PetDataController extends Controller
             'letter' => $letter ? [
                 'letter_content' => $letter->letter_content,
             ] : null,
+            'life_slides' => $lifeSlides,
         ];
 
         return response()->json([

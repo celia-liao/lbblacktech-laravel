@@ -97,17 +97,33 @@ async function getTimeline(data) {
 
 // 記憶迴廊
 async function getCorridor(data) {
+
     const corridor_images = []
-    for (let i = 1; i <= 22; i++) {
-      const paddedNumber = i.toString().padStart(2, "0")
-      corridor_images.push(`film_${paddedNumber}.webp`)
-    }
-    // 影片清單
     const corridor_videos = [];
-    for (let i = 1; i <= 16; i++) {
-        const paddedNumber = i.toString().padStart(2, "0");
-        corridor_videos.push(`film_${paddedNumber}.mp4`);
+    const corridor_image = [];
+    const corridor_video = [];
+
+    for (const event of data.life_slides) {
+        corridor_image.push(event.life_slide_image);
+        corridor_video.push(event.life_slide_video);
     }
+
+    console.log(corridor_image, corridor_video);
+
+    const minLength = Math.min(corridor_image.length, corridor_video.length)
+
+    console.log(minLength);
+
+    for (let i = 0; i < minLength; i++) {
+        const imageName = corridor_image[i] || `film_${String(i + 1).padStart(2, '0')}.webp`
+        const videoName = corridor_video[i] || `film_${String(i + 1).padStart(2, '0')}.mp4`
+
+        corridor_images.push(imageName);
+        corridor_videos.push(videoName);
+    }
+
+
+
     window.corridor_images = corridor_images;
     window.corridor_videos = corridor_videos;
 }

@@ -25,17 +25,12 @@ class Pet extends Model
 
     public function photoGalleries()
     {
-        return $this->hasMany(PhotoGallery::class);
+        return $this->hasMany(PhotoGallery::class, 'pet_id', 'pet_id');
     }
 
-    public function musicPlaylists()
+    public function lifeSlides()
     {
-        return $this->hasMany(MusicPlaylist::class);
-    }
-
-    public function visitorMessages()
-    {
-        return $this->hasMany(VisitorMessage::class);
+        return $this->hasMany(\App\Models\LifeSlide::class, 'pet_id', 'pet_id');
     }
 
     public function letter()
@@ -52,6 +47,8 @@ class Pet extends Model
     {
         return $this->hasOne(\App\Models\WebsiteStyle::class, 'pet_id'); 
     }
+
+
 
 
 }

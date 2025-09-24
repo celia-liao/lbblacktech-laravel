@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\StoresPetImages;
 
 class PhotoGallery extends Model
 {
-    use HasFactory;
+    use HasFactory, StoresPetImages;
+
+    protected $primaryKey = 'photo_id';
 
     protected $fillable = [
         'pet_id', 'gallery_name', 'photo_path', 'photo_title',
@@ -16,8 +19,25 @@ class PhotoGallery extends Model
         'is_visible', 'view_count'
     ];
 
+    protected static function booted()
+    {
+        static::saving(function ($gallery) {
+            if (request()->hasFile('photo_path')) {
+                $gallery->photo_path = $gallery->storePhotoGalleryImage(request()->file('photo_path'), $gallery->photo_category);
+            }
+            if (request()->hasFile('original_image')) {
+                $gallery->original_image = $gallery->storePhotoGalleryImage(request()->file('original_image'), $gallery->photo_category);
+            }
+        });
+    }
+
     public function pet()
     {
-        return $this->belongsTo(Pet::class);
+        return $this->belongsTo(Pet::class, 'pet_id', 'pet_id');
+    }
+
+    public function getStoragePath($filename)
+    {
+        return $this->getLifeSlideImageUrl($filename);
     }
 }

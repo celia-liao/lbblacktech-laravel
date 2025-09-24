@@ -32,7 +32,6 @@ class PhotoGallerySeeder extends Seeder
                     'pet_id' => $pet->pet_id,
                     'photo_path' => $image,
                     'photo_category' => 'header',
-                    'original_image' => $image,
                     'display_order' => $index + 1,
                     'is_active' => true,
                 ]);
@@ -54,7 +53,6 @@ class PhotoGallerySeeder extends Seeder
                     'pet_id' => $pet->pet_id,
                     'photo_path' => $bubble['small'],
                     'photo_category' => 'bubble_small',
-                    'original_image' => $bubble['large'],
                     'display_order' => $index + 1,
                     'is_active' => true,
                 ]);
@@ -64,26 +62,26 @@ class PhotoGallerySeeder extends Seeder
                     'pet_id' => $pet->pet_id,
                     'photo_path' => $bubble['large'],
                     'photo_category' => 'bubble_large',
-                    'original_image' => $bubble['large'],
                     'display_order' => $index + 1,
                     'is_active' => true,
                 ]);
             }
-            
-            // 記憶迴廊照片 (corridor_images)
-            for ($i = 1; $i <= 22; $i++) {
-                $paddedNumber = str_pad($i, 2, '0', STR_PAD_LEFT);
-                $imageName = "film_{$paddedNumber}.webp";
-                
-                PhotoGallery::create([
-                    'pet_id' => $pet->pet_id,
-                    'photo_path' => $imageName,
-                    'photo_category' => 'corridor',
-                    'original_image' => $imageName,
-                    'display_order' => $i,
-                    'is_active' => true,
-                ]);
-            }
+
+            // 載入照片 (loading_imagePaths)
+            PhotoGallery::create([
+                'pet_id' => $pet->pet_id,
+                'photo_path' => 'human.svg',
+                'photo_category' => 'loading_people',
+                'display_order' => 1,
+                'is_active' => true,
+            ]);
+            PhotoGallery::create([
+                'pet_id' => $pet->pet_id,
+                'photo_path' => 'pet.svg',
+                'photo_category' => 'loading_pet',
+                'display_order' => 1,
+                'is_active' => true,
+            ]);
         }
     }
 }

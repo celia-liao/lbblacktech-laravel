@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('letters', function (Blueprint $table) {
-            $table->comment('信件內容表');
-            $table->id('letter_id')->comment('信件ID');
+        Schema::create('life_slides', function (Blueprint $table) {
+            $table->comment('輪播圖');
+            $table->id('life_slide_id')->comment('輪播圖ID');
             $table->foreignId('pet_id')->constrained('pets', 'pet_id')->onDelete('cascade')->comment('寵物ID');
-            $table->text('letter_content')->comment('信件內容 (text)');
+            $table->string('life_slide_image', 500)->nullable()->comment('圖片路徑');
+            $table->string('life_slide_video', 500)->nullable()->comment('影片路徑');
+            $table->boolean('is_active')->default(true)->comment('是否啟用');
             $table->timestamps();
-            $table->unique('pet_id', 'uk_pet_id');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('letters');
+        Schema::dropIfExists('life_slides');
     }
 };

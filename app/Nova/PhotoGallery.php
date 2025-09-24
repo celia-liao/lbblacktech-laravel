@@ -4,27 +4,28 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\HasOne;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 
-class Pet extends Resource
+class PhotoGallery extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Pet>
+     * @var class-string<\App\Models\PhotoGallery>
      */
-    public static $model = \App\Models\Pet::class;
+    public static $model = \App\Models\PhotoGallery::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'pet_id';
+    public static $title = 'photo_id';
 
     /**
      * The columns that should be searched.
@@ -32,7 +33,7 @@ class Pet extends Resource
      * @var array
      */
     public static $search = [
-        'pet_id',
+        'photo_id',
     ];
 
     /**
@@ -43,29 +44,22 @@ class Pet extends Resource
     public function fields(NovaRequest $request): array
     {
         return [
-            ID::make('Pet ID', 'pet_id')->sortable(),
-            Text::make('Pet Name', 'pet_name')->sortable(),
-            Text::make('Website Slug', 'website_slug')->sortable(),
-            Text::make('Slogan', 'slogan')->sortable(),
+            ID::make('Photo ID', 'photo_id')->sortable(),
+            Image::make('Photo Path', 'photo_path')
+                ->disk('public')
+                ->thumbnail(fn($value, $disk, $model) => $model->getPhotoGalleryImageUrl($value))
+                ->preview(fn($value, $disk, $model) => $model->getPhotoGalleryImageUrl($value)),
+            Select::make('Photo Category', 'photo_category')
+                ->options([
+                    'header' => 'Header',
+                    'bubble_small' => 'Bubble Small',
+                    'bubble_large' => 'Bubble Large',
+                    'loading_people' => 'Loading People',
+                    'loading_pet' => 'Loading Pet',
+                ])
+                ->sortable(),
+            Text::make('Display Order', 'display_order')->sortable(),
             Boolean::make('Is Active', 'is_active')->sortable(),
-
-            // ⭐ 掛載 Letter
-            HasOne::make('Letter', 'letter', \App\Nova\Letter::class),
-
-            // ⭐ 掛載 Website Setting
-            HasOne::make('Website Setting', 'websiteSetting', \App\Nova\WebsiteSetting::class),
-
-            // ⭐ 掛載 Website Style
-            HasOne::make('Website Style', 'websiteStyle', \App\Nova\WebsiteStyle::class),
-
-            // ⭐ 掛載 Timeline Event
-            HasMany::make('Timeline Event', 'timelineEvents', \App\Nova\TimelineEvent::class),
-        
-            // ⭐ 掛載 Photo Gallery
-            HasMany::make('Photo Gallery', 'photoGalleries', \App\Nova\PhotoGallery::class),
-
-            // ⭐ 掛載 Life Slide
-            HasMany::make('Life Slide', 'lifeSlides', \App\Nova\LifeSlide::class),
         ];
     }
 

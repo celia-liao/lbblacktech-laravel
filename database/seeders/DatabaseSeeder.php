@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             TimelineEventSeeder::class,
             LetterSeeder::class,
             AdminUserSeeder::class,
+            LifeSlideSeeder::class,
         ]);
     }
 }
