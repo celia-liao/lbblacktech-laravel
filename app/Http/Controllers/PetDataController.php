@@ -28,14 +28,17 @@ class PetDataController extends Controller
         // 獲取相關資料
         $websiteSetting = WebsiteSetting::where('pet_id', $pet->pet_id)->first();
         $websiteStyle = WebsiteStyle::where('pet_id', $pet->pet_id)->first();
-        $photoGalleries = PhotoGallery::where('pet_id', $pet->pet_id)->get();
+        $photoGalleries = PhotoGallery::where('pet_id', $pet->pet_id)
+            ->where('is_active', true)
+            ->orderBy('display_order')
+            ->get();
         $petVideos = PetVideo::where('pet_id', $pet->pet_id)->where('is_active', true)->get();
         $timelineEvents = TimelineEvent::where('pet_id', $pet->pet_id)
             ->where('is_visible', true)
             ->orderBy('display_order')
             ->get();
         $letter = Letter::where('pet_id', $pet->pet_id)->first();
-        $lifeSlides = LifeSlide::where('pet_id', $pet->pet_id)->get();
+        $lifeSlides = LifeSlide::where('pet_id', $pet->pet_id)->where('is_active', true)->get();
 
         // 整理照片資料
         $photos = [

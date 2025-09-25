@@ -19,6 +19,8 @@ class Pet extends Resource
      */
     public static $model = \App\Models\Pet::class;
 
+    public static $group = 'Pet Management';
+    
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -44,10 +46,18 @@ class Pet extends Resource
     {
         return [
             ID::make('Pet ID', 'pet_id')->sortable(),
-            Text::make('Pet Name', 'pet_name')->sortable(),
-            Text::make('Website Slug', 'website_slug')->sortable(),
-            Text::make('Slogan', 'slogan')->sortable(),
-            Boolean::make('Is Active', 'is_active')->sortable(),
+            Text::make('Pet Name', 'pet_name')
+                ->sortable()
+                ->help('輸入寵物名稱'),
+            Text::make('Website Slug', 'website_slug')
+                ->sortable()
+                ->help('輸入網站識別碼'),
+            Text::make('Slogan', 'slogan')
+                ->sortable()
+                ->help('輸入給毛孩的一句話, 若要換行顯示請輸入<br>'),
+            Boolean::make('Is Active', 'is_active')
+                ->sortable()
+                ->help('勾選是否啟用網站'),
 
             // ⭐ 掛載 Letter
             HasOne::make('Letter', 'letter', \App\Nova\Letter::class),
@@ -66,6 +76,9 @@ class Pet extends Resource
 
             // ⭐ 掛載 Life Slide
             HasMany::make('Life Slide', 'lifeSlides', \App\Nova\LifeSlide::class),
+       
+            // ⭐ 掛載 Pet Video
+            HasMany::make('Pet Video', 'petVideos', \App\Nova\PetVideo::class),
         ];
     }
 

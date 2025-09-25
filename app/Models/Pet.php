@@ -33,6 +33,11 @@ class Pet extends Model
         return $this->hasMany(\App\Models\LifeSlide::class, 'pet_id', 'pet_id');
     }
 
+    public function petVideos()
+    {
+        return $this->hasMany(\App\Models\PetVideo::class, 'pet_id', 'pet_id');
+    }
+
     public function letter()
     {
         return $this->hasOne(\App\Models\Letter::class, 'pet_id'); 

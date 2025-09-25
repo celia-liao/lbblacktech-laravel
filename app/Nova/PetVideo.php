@@ -7,27 +7,28 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class LifeSlide extends Resource
+class PetVideo extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\LifeSlide>
+     * @var class-string<\App\Models\PetVideo>
      */
-    public static $model = \App\Models\LifeSlide::class;
+    public static $model = \App\Models\PetVideo::class;
 
     public static $group = 'Pet Management';
+
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'life_slide_id';
+    public static $title = 'video_id';
 
     /**
      * The columns that should be searched.
@@ -35,7 +36,7 @@ class LifeSlide extends Resource
      * @var array
      */
     public static $search = [
-        'life_slide_id',
+        'video_id',
     ];
 
     /**
@@ -46,26 +47,20 @@ class LifeSlide extends Resource
     public function fields(NovaRequest $request): array
     {
         return [
-            ID::make('Life Slide ID', 'life_slide_id')->sortable(),
+            ID::make('Video ID', 'video_id')->sortable(),
             BelongsTo::make('Pet', 'pet', \App\Nova\Pet::class)
                 ->display('pet_name'), 
-            Image::make('Life Slide Image', 'life_slide_image')
-                ->disk('public')
-                ->thumbnail(fn($value, $disk, $model) => $model->getLifeSlideUrl($value, 'image'))
-                ->preview(fn($value, $disk, $model) => $model->getLifeSlideUrl($value, 'image'))
-                ->help('上傳記憶迴廊照片'),
-            // ⭐ 記憶迴廊影片
-            File::make('Life Slide Video', 'life_slide_video')
+            File::make('Video Path', 'video_path')
                 ->rules('mimes:mp4')
-                ->help('上傳記憶迴廊影片 (檔案格式必須為mp4)')
+                ->help('上傳影片 (檔案格式必須為mp4)')
                 ->onlyOnForms(), // 僅在表單中顯示
-            
+
             Text::make('Preview Video', function () {
-                if (!$this->life_slide_video) {
+                if (!$this->video_path) {
                     return "<span style='color:red;'>❌ 尚未上傳影片</span>";
                 }
             
-                $url = $this->getLifeSlideUrl($this->life_slide_video, 'video');
+                $url = $this->getPetVideoUrl($this->video_path, 'video');
             
                 return "<video width='320' controls style='border-radius:8px'>
                             <source src='{$url}' type='video/mp4'>
@@ -73,9 +68,24 @@ class LifeSlide extends Resource
                         </video>";
             })->asHtml()->onlyOnDetail(),
 
-            Text::make('Life Slide Video', 'life_slide_video')
+            Text::make('video_path', 'video_path')
                 ->onlyOnIndex(),
 
+            Text::make('Text', 'text')
+                ->help('輸入按鈕文字')
+                ->sortable(),
+            Select::make('Ratio', 'ratio')
+                ->options([
+                    'tall' => 'Tall',
+                    'long' => 'Long',
+                ])
+                ->sortable()
+                ->help('選擇影片為長版(tall)或寬版(long)'),
+            Boolean::make('Sound', 'sound')->sortable()
+                ->help('勾選影片是否有聲音'),
+            Text::make('Category', 'category')
+                ->sortable()
+                ->help('輸入影片類別：封面(header)、泡泡(bubble)'),
             Boolean::make('Is Active', 'is_active')->sortable(),
         ];
     }

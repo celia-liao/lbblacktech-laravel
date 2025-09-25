@@ -29,6 +29,7 @@ class LifeSlide extends Model
         static::saving(function ($slide) {
             $request = request(); // ✅ 避免 CLI 出錯
 
+
             if ($request && $request->hasFile('life_slide_image')) {
                 $slide->life_slide_image = $slide->storeLifeSlide($request->file('life_slide_image'), 'image');
             }

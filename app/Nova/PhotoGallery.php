@@ -20,6 +20,8 @@ class PhotoGallery extends Resource
      */
     public static $model = \App\Models\PhotoGallery::class;
 
+    public static $group = 'Pet Management';
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -45,10 +47,13 @@ class PhotoGallery extends Resource
     {
         return [
             ID::make('Photo ID', 'photo_id')->sortable(),
+            BelongsTo::make('Pet', 'pet', \App\Nova\Pet::class)
+                ->display('pet_name'), 
             Image::make('Photo Path', 'photo_path')
                 ->disk('public')
                 ->thumbnail(fn($value, $disk, $model) => $model->getPhotoGalleryImageUrl($value))
-                ->preview(fn($value, $disk, $model) => $model->getPhotoGalleryImageUrl($value)),
+                ->preview(fn($value, $disk, $model) => $model->getPhotoGalleryImageUrl($value))
+                ->help('上傳照片'),
             Select::make('Photo Category', 'photo_category')
                 ->options([
                     'header' => 'Header',
@@ -57,8 +62,11 @@ class PhotoGallery extends Resource
                     'loading_people' => 'Loading People',
                     'loading_pet' => 'Loading Pet',
                 ])
-                ->sortable(),
-            Text::make('Display Order', 'display_order')->sortable(),
+                ->sortable()
+                ->help('選擇照片類別'),
+            Text::make('Display Order', 'display_order')
+                ->sortable()
+                ->help('輸入照片顯示順序'),
             Boolean::make('Is Active', 'is_active')->sortable(),
         ];
     }

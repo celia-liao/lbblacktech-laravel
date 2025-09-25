@@ -53,24 +53,8 @@ class PetVideoSeeder extends Seeder
                     'display_order' => $index + 1,
                     'is_active' => true,
                 ]);
-            }
-            
-            // 記憶迴廊影片 (corridor_videos)
-            for ($i = 1; $i <= 16; $i++) {
-                $paddedNumber = str_pad($i, 2, '0', STR_PAD_LEFT);
-                $videoName = "film_{$paddedNumber}.mp4";
-                
-                PetVideo::create([
-                    'pet_id' => $pet->pet_id,
-                    'video_path' => $videoName,
-                    'text' => null,
-                    'ratio' => 'tall',
-                    'sound' => false,
-                    'category' => 'corridor',
-                    'display_order' => $i,
-                    'is_active' => true,
-                ]);
-            }
+            } 
         }
     }
 }
+ 

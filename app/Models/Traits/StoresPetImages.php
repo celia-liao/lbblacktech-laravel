@@ -89,8 +89,8 @@ trait StoresPetImages
         // 組合完整路徑
         $path = "pets/{$slug}/{$subPath}";
 
-        // 使用唯一的文件名
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        // 使用原始文件名
+        $filename = $file->getClientOriginalName();
 
         // 儲存檔案到 public disk
         $file->storeAs($path, $filename, 'public');
@@ -128,8 +128,35 @@ trait StoresPetImages
         // 組合完整路徑
         $path = "pets/{$slug}/{$subPath}";
 
-        // 使用唯一的文件名
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        // 使用原始文件名
+        $filename = $file->getClientOriginalName();
+
+        // 儲存檔案到 public disk
+        $file->storeAs($path, $filename, 'public');
+
+        // 返回文件名
+        return $filename;
+    }
+
+    /* Pet Video */
+    public function getPetVideoUrl(?string $filename, ): ?string
+    {
+        if (!$filename) return null;
+
+        $slug = $this->pet->website_slug ?? 'default';
+        return asset("storage/pets/{$slug}/image/main/interaction/photo/{$filename}");
+    }
+
+    public function storePetVideo(UploadedFile $file): string
+    {
+        // 從關聯的 Pet 取得 slug，如果沒有就用 default
+        $slug = $this->pet->website_slug ?? 'default';
+
+        // 組合完整路徑
+        $path = "pets/{$slug}/image/main/interaction/photo";
+
+        // 使用原始文件名
+        $filename = $file->getClientOriginalName();
 
         // 儲存檔案到 public disk
         $file->storeAs($path, $filename, 'public');

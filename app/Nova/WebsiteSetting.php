@@ -17,6 +17,9 @@ class WebsiteSetting extends Resource
      */
     public static $model = \App\Models\WebsiteSetting::class;
 
+    public static $group = 'Pet Management';
+
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -42,10 +45,20 @@ class WebsiteSetting extends Resource
     {
         return [
             ID::make('Setting ID', 'setting_id')->sortable(),
-            Text::make('Target Number', 'target_number')->sortable(),
-            Text::make('Duration', 'duration')->sortable(),
-            Text::make('Corridor Random Image Count', 'corridor_random_image_count')->sortable(),
-            Text::make('Creation Date', 'creation_date')->sortable(),
+            BelongsTo::make('Pet', 'pet', \App\Nova\Pet::class)
+                ->display('pet_name'), 
+            Text::make('Target Number', 'target_number')
+                ->sortable()
+                ->help('輸入最後天數'),
+            Text::make('Duration', 'duration')
+                ->sortable()
+                ->help('輸入動畫時間(毫秒) 例如: 4000'),
+            Text::make('Corridor Random Image Count', 'corridor_random_image_count')
+                ->sortable()
+                ->help('輸入記憶迴廊隨機張數'),
+            Text::make('Creation Date', 'creation_date')
+                ->sortable()
+                ->help('輸入製作日期'),
         ];
     }
 

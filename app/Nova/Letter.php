@@ -4,9 +4,8 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\BelongsTo;
 
 class Letter extends Resource
@@ -17,6 +16,9 @@ class Letter extends Resource
      * @var class-string<\App\Models\Letter>
      */
     public static $model = \App\Models\Letter::class;
+
+    public static $group = 'Pet Management';
+
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -43,7 +45,11 @@ class Letter extends Resource
     {
         return [
             ID::make('Letter ID', 'letter_id')->sortable(),
-            Text::make('Letter Content', 'letter_content')->sortable(),
+            BelongsTo::make('Pet', 'pet', \App\Nova\Pet::class)
+                ->display('pet_name'), 
+            Textarea::make('Letter Content', 'letter_content')
+                ->sortable()
+                ->help('輸入信件內容'),
         ];
     }
 

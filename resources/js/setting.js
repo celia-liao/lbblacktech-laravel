@@ -108,11 +108,7 @@ async function getCorridor(data) {
         corridor_video.push(event.life_slide_video);
     }
 
-    console.log(corridor_image, corridor_video);
-
     const minLength = Math.min(corridor_image.length, corridor_video.length)
-
-    console.log(minLength);
 
     for (let i = 0; i < minLength; i++) {
         const imageName = corridor_image[i] || `film_${String(i + 1).padStart(2, '0')}.webp`
@@ -130,10 +126,12 @@ async function getCorridor(data) {
 
 // 照片資料 (用相片集)
 async function getPhotoGallery(data) {
+
     // 封面照片
     window.header_imageList = data.photos.header.map(image => {
         return `${getImageBasePath()}/header/photo/${image}`;
     });
+
 
     // 泡泡照片
     const bubble_images_small = data.photos.bubble_small || []
