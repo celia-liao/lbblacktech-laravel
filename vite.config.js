@@ -37,7 +37,8 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                app: 'resources/css/app.css',
+                app: 'resources/js/app.js',
+                appCss: 'resources/css/app.css',
                 pet: 'resources/css/pet.css',
                 bubble: 'resources/css/bubble.css',
                 photoswipe: 'resources/css/photoswipe.css',
