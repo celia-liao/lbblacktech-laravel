@@ -146,30 +146,6 @@
         });
     </script>
 
-    <!-- 立即執行 loading 初始化 -->
-    <script>
-        // 立即初始化 loading 功能
-        document.addEventListener('DOMContentLoaded', function() {
-            // 禁止滾動
-            function disableScroll() {
-                document.body.style.overflow = "hidden";
-                document.body.style.position = "fixed";
-                document.body.style.width = "100%";
-            }
-            
-            // 立即禁止滾動並顯示 loading
-            disableScroll();
-            
-            // 確保 loading overlay 可見
-            const loadingOverlay = document.querySelector(".loading-overlay");
-            if (loadingOverlay) {
-                loadingOverlay.style.display = "flex";
-                loadingOverlay.style.opacity = "1";
-                loadingOverlay.style.visibility = "visible";
-            }
-        });
-    </script>
-
     @stack('scripts')
 </body>
 

@@ -244,8 +244,7 @@ async function initializePetWebsite() {
         await getPhotoGallery(data);
         await getPet(data);
         
-        // 載入完整的 loading2.js 來處理 loading 移除
-        await import(window.PET_ASSETS.jsFiles.loading2);
+
         await import(window.PET_ASSETS.jsFiles.day);
         await import(window.PET_ASSETS.jsFiles.newScroll);
         await import(window.PET_ASSETS.jsFiles.lifeSlides);
@@ -273,6 +272,9 @@ async function initializePetWebsite() {
 
 // DOM Ready 後啟動
 document.addEventListener("DOMContentLoaded", () => {
+    // 載入完整的 loading2.js 來處理 loading 移除
+    import(window.PET_ASSETS.jsFiles.loading2);
+
     initializePetWebsite();
 });
 
