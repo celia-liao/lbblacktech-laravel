@@ -234,6 +234,9 @@ async function getPet(data) {
 
 async function initializePetWebsite() {
     try {
+        // 立即載入 loading2.js 確保載入畫面正常顯示
+        await import(window.PET_ASSETS.jsFiles.loading2);
+        
         // 先等 API 完成
         const data = await fetchPetData();
         await getWebsiteSetting(data);
@@ -244,7 +247,6 @@ async function initializePetWebsite() {
         await getPhotoGallery(data);
         await getPet(data);
         
-        await import(window.PET_ASSETS.jsFiles.loading2);
         await import(window.PET_ASSETS.jsFiles.day);
         await import(window.PET_ASSETS.jsFiles.newScroll);
 
