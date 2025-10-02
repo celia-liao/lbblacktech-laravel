@@ -234,10 +234,7 @@ async function getPet(data) {
 
 async function initializePetWebsite() {
     try {
-        // 立即載入 loading2.js 確保載入畫面正常顯示
-        await import(window.PET_ASSETS.jsFiles.loading2);
-        
-        // 先等 API 完成
+        // loading 已在 HTML 中初始化，直接開始載入資料
         const data = await fetchPetData();
         await getWebsiteSetting(data);
         await getWebsiteStyle(data);
@@ -247,9 +244,10 @@ async function initializePetWebsite() {
         await getPhotoGallery(data);
         await getPet(data);
         
+        // 載入完整的 loading2.js 來處理 loading 移除
+        await import(window.PET_ASSETS.jsFiles.loading2);
         await import(window.PET_ASSETS.jsFiles.day);
         await import(window.PET_ASSETS.jsFiles.newScroll);
-
         await import(window.PET_ASSETS.jsFiles.lifeSlides);
         await import(window.PET_ASSETS.jsFiles.main);
         
@@ -261,6 +259,9 @@ async function initializePetWebsite() {
         await import(window.PET_ASSETS.jsFiles.svgColor);
         await import(window.PET_ASSETS.jsFiles.footerSlogan);
         await import(window.PET_ASSETS.jsFiles.utm);
+
+
+
         
         // 觸發生命軌跡事件
         setTimeout(() => {
