@@ -107,10 +107,7 @@
                 lifeSlides: '{{ Vite::asset("resources/js/lifeSlides.js") }}',
                 main: '{{ Vite::asset("resources/js/main.js") }}',
                 bubble: '{{ Vite::asset("resources/js/bubble.js") }}',
-                svgColor: '{{ Vite::asset("resources/js/svgColor.js") }}',
-                // 外部 JavaScript 文件
-                photoswipe: '{{ Vite::asset("resources/js/photoswipe.umd.min.js") }}',
-                photoswipeLightbox: '{{ Vite::asset("resources/js/photoswipe-lightbox.umd.min.js") }}',
+                svgColor: '{{ Vite::asset("resources/js/svgColor.js") }}',               
                 loading2: '{{ Vite::asset("resources/js/loading2.js") }}',
                 day: '{{ Vite::asset("resources/js/day.js") }}',
                 newScroll: '{{ Vite::asset("resources/js/new-scroll.js") }}',
