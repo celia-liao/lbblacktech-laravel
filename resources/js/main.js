@@ -1,3 +1,6 @@
+import PhotoSwipeLightbox from 'photoswipe/lightbox';
+import PhotoSwipe from 'photoswipe';
+
 // 泡泡區域動畫
 let mainBobs = document.querySelector(".main-bobs");
 let bob1 = mainBobs.querySelector(".main-bobs-area-box-1-bob");
@@ -626,9 +629,7 @@ function initializeLifeSlides() {
       },
     });
     lightboxLife.init();
-  });
-  
-  console.log('生命軌跡初始化完成');
+  });  
 }
 
 // 監聽生命軌跡生成完成事件
