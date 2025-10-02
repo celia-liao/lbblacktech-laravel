@@ -101,7 +101,7 @@
             audioPath: '{{ asset("storage/pets/" . $slug . "/audio") }}',
             fontPath: '{{ asset("storage/pets/" . $slug . "/font") }}',
             stylePath: '{{ asset("storage/pets/" . $slug . "/style") }}',
-            jsPath: '{{ Vite::asset("resources/js", "build") }}',
+            jsPath: '{{ Vite::asset("resources/js/app.js") }}',
             // 構建後的 JavaScript 文件路徑
             jsFiles: {
                 lifeSlides: '{{ Vite::asset("resources/js/lifeSlides.js") }}',
