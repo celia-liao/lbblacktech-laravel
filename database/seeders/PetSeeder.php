@@ -14,6 +14,7 @@ class PetSeeder extends Seeder
     {
         Pet::create([
             'pet_name' => '嚕比',
+            'breed' => '黃金獵犬',
             'website_slug' => 'ruby-20130701',
             'slogan' => '嚕比，謝謝妳<br>豐富了我國小到大學的生活，<br>我們之間雖然已成過去式，<br>但妳一直都活在我的心中！<br>我永遠愛妳！',
             'is_active' => true,

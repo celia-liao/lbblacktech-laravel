@@ -49,6 +49,9 @@ class Pet extends Resource
             Text::make('Pet Name', 'pet_name')
                 ->sortable()
                 ->help('輸入寵物名稱'),
+            Text::make('Breed', 'breed')
+                ->sortable()
+                ->help('輸入寵物品種'),
             Text::make('Website Slug', 'website_slug')
                 ->sortable()
                 ->help('輸入網站識別碼'),

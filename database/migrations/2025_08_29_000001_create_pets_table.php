@@ -15,11 +15,11 @@ return new class extends Migration
             $table->comment('寵物基本資料表');
             $table->id('pet_id')->comment('寵物ID');
             $table->string('pet_name', 100)->comment('寵物名稱');
+            $table->string('breed', 100)->nullable()->comment('寵物品種');
             $table->string('website_slug', 100)->unique()->comment('網站識別碼');
             $table->text('slogan')->nullable()->comment('給毛孩的一句話 (main-img-area-slogan h1)');
             $table->boolean('is_active')->default(true)->comment('是否啟用');
             $table->timestamps();
-            
             $table->index('is_active', 'idx_is_active');
         });
     }
