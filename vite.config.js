@@ -9,7 +9,6 @@ export default defineConfig({
                 'resources/css/app.css', 
                 'resources/css/pet.css',
                 'resources/css/bubble.css',
-                'resources/css/font.css',
                 'resources/css/photoswipe.css',
                 'resources/css/style.css',
                 'resources/css/function-20250324.css',
