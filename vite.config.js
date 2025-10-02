@@ -16,8 +16,6 @@ export default defineConfig({
                 'resources/css/continued.css',
                 'resources/js/app.js',
                 'resources/js/svgColor.js',
-                'resources/js/photoswipe.umd.min.js',
-                'resources/js/photoswipe-lightbox.umd.min.js',
                 'resources/js/setting.js',
                 'resources/js/bubble.js',
                 'resources/js/lifeSlides.js',
