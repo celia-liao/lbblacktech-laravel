@@ -1,4 +1,4 @@
-// 泡泡區域動畫��
+// 泡泡區域動畫
 let mainBobs = document.querySelector(".main-bobs");
 let bob1 = mainBobs.querySelector(".main-bobs-area-box-1-bob");
 let bob2 = mainBobs.querySelector(".main-bobs-area-box-2-bob");
@@ -486,7 +486,6 @@ function onLastPage() {
   observer.observe(section);
 }
 
-// 甇脫彍皛烐▼
 window.dotMove = function (i, n) {
   if (lifeAllSlide.length == lineDotAll.length) {
     const totalItems = lineDotAll.length;

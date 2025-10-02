@@ -246,6 +246,20 @@ async function initializePetWebsite() {
         // API 完成後再載入外部模組
         await import(window.PET_ASSETS.jsFiles.photoswipe);
         await import(window.PET_ASSETS.jsFiles.photoswipeLightbox);
+        
+        // 等待 PhotoSwipe 全域變數設定完成
+        let attempts = 0;
+        while ((!window.PhotoSwipe || !window.PhotoSwipeLightbox) && attempts < 100) {
+            await new Promise(resolve => setTimeout(resolve, 10));
+            attempts++;
+        }
+        
+        if (!window.PhotoSwipe || !window.PhotoSwipeLightbox) {
+            console.error('PhotoSwipe 模組載入失敗');
+        } else {
+            console.log('PhotoSwipe 模組載入成功');
+        }
+        
         await import(window.PET_ASSETS.jsFiles.loading2);
         await import(window.PET_ASSETS.jsFiles.day);
         await import(window.PET_ASSETS.jsFiles.newScroll);
