@@ -1,61 +1,70 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const calendar = document.getElementById("footerCalendar")
-  const original = document.querySelector(".calendar-original")
-  const again = document.querySelector(".calendar-again")
-  const ripple = document.getElementById("rippleEffect")
-  const calendarDayText = document.getElementById("calendar-again-day")
+// ===========================
+// 毛孩紀念網站 - 底部日曆動畫：點擊出現新日曆
+// ===========================
 
-  // 點擊 footer-calendar 事件
-  calendar.addEventListener("click", () => {
-    // 隱藏 ripple 效果
-    if (ripple) ripple.classList.add("ripple-hidden")
+const calendar = document.getElementById("footerCalendar");
+const original = document.querySelector(".calendar-original");
+const again = document.querySelector(".calendar-again");
+const ripple = document.getElementById("rippleEffect");
+const calendarDayText = document.getElementById("calendar-again-day");
 
-    // 播放原本日曆淡出動畫
-    if (original) original.classList.add("fade-out")
+// 點擊 footer-calendar 事件
+if (calendar) {
+    calendar.addEventListener("click", () => {
+        // 隱藏 ripple 效果
+        if (ripple) ripple.classList.add("ripple-hidden");
 
-    // 顯示新的日曆
-    if (again) again.style.display = "block"
-  })
+        // 播放原本日曆淡出動畫
+        if (original) original.classList.add("fade-out");
 
-  // 日期計算與插入
-  const startDate = new Date(startDateStr)
-  const today = new Date()
-  const diffTime = today - startDate
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24) + 1)
+        // 顯示新的日曆
+        if (again) again.style.display = "block";
+    });
+}
 
-  if (calendarDayText) {
-    calendarDayText.textContent = `${diffDays}`
-  }
+// 日期計算與插入
+if (typeof window.startDateStr !== "undefined") {
+    const startDate = new Date(window.startDateStr);
+    const today = new Date();
+    const diffTime = today - startDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24) + 1);
 
-  const footerConclusion = document.querySelector(".footer-conclusion")
-
-  calendar.addEventListener("click", () => {
-    if (ripple) ripple.classList.add("ripple-hidden")
-    if (original) original.classList.add("fade-out")
-    if (again) again.style.display = "block"
-
-    if (footerConclusion) {
-      setTimeout(() => {
-        footerConclusion.classList.add("show")
-
-        // 找到 h2 > span，延遲再讓 span 淡入
-        const span = footerConclusion.querySelector("h2 span")
-        if (span) {
-          setTimeout(() => {
-            span.classList.add("show-span")
-          }, 800) // 可以視情況調整延遲時間
-        }
-
-      }, 500)
+    if (calendarDayText) {
+        calendarDayText.textContent = `${diffDays}`;
     }
-  })
+} else {
+    console.log("footer-slogan.js: startDateStr 未定義，跳過日期計算");
+}
 
-})
+const footerConclusion = document.querySelector(".footer-conclusion");
+
+if (calendar) {
+    calendar.addEventListener("click", () => {
+        if (ripple) ripple.classList.add("ripple-hidden");
+        if (original) original.classList.add("fade-out");
+        if (again) again.style.display = "block";
+
+        if (footerConclusion) {
+            setTimeout(() => {
+                footerConclusion.classList.add("show");
+
+                // 找到 h2 > span，延遲再讓 span 淡入
+                const span = footerConclusion.querySelector("h2 span");
+                if (span) {
+                    setTimeout(() => {
+                        span.classList.add("show-span");
+                    }, 800); // 可以視情況調整延遲時間
+                }
+            }, 500);
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  const dayElement = document.querySelector(".calendar-original .footer-time.day");
-
-  if (dayElement) {
-    dayElement.textContent = targetNumber;
-  }
+    const dayElement = document.querySelector(
+        ".calendar-original .footer-time.day"
+    );
+    if (dayElement && typeof window.targetNumber !== "undefined") {
+        dayElement.textContent = window.targetNumber;
+    }
 });

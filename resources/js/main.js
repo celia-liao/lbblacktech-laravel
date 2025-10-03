@@ -661,6 +661,8 @@ const observerFit = new MutationObserver((mutationsList) => {
   for (const mutation of mutationsList) {
     if (mutation.type === "attributes" && mutation.attributeName === "class") {
       if (fit.classList.contains("aos-animate") && !firstFit) {
+        firstFit = true; // 標記為已觸發，防止重複執行
+        
         if (fit1Img) {
           fit1Img.src = `./image/footer/up-fit.gif?${timestamp}`;
         }
@@ -675,21 +677,19 @@ const observerFit = new MutationObserver((mutationsList) => {
         const isImmersiveMode = window.buttonStates === true;
         
         if (isMobile && !isImmersiveMode) {
-          setTimeout(() => {
-            sloganBox?.classList.add("show");
-          }, 1500);
-
+          // 手機版：立即顯示
+          sloganBox?.classList.add("show");
+          
           setTimeout(() => {
             continued?.classList.add("show");
-          }, 1900);
+          }, 300); // 手機版：0.3秒後顯示日曆
         } else {
-          setTimeout(() => {
-            sloganBox?.classList.add("show");
-          }, 5000);
-
+          // 桌面版：立即顯示
+          sloganBox?.classList.add("show");
+          
           setTimeout(() => {
             continued?.classList.add("show");
-          }, 5400);
+          }, 400); // 桌面版：0.4秒後顯示日曆
         }
       }
     }
@@ -697,6 +697,57 @@ const observerFit = new MutationObserver((mutationsList) => {
 });
 
 observerFit.observe(fit, { attributes: true });
+
+// 備用方案：使用 IntersectionObserver 確保動畫觸發
+const fitIntersectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !firstFit) {
+      // 等待 AOS 動畫完成，如果沒有觸發則手動觸發
+      setTimeout(() => {
+        if (!firstFit) {
+          firstFit = true;
+          
+          const timestamp = new Date().getTime();
+          
+          if (fit1Img) {
+            fit1Img.src = `./image/footer/up-fit.gif?${timestamp}`;
+          }
+          setTimeout(() => {
+            if (fit2Img) {
+              fit2Img.src = `./image/footer/down-fit.gif?${timestamp}`;
+            }
+          }, 5200);
+
+          const isMobile = window.innerWidth <= 768;
+          const isImmersiveMode = window.buttonStates === true;
+          
+          if (isMobile && !isImmersiveMode) {
+            // 手機版：立即顯示
+            sloganBox?.classList.add("show");
+            
+            setTimeout(() => {
+              continued?.classList.add("show");
+            }, 300); // 手機版：0.3秒後顯示日曆
+          } else {
+            // 桌面版：立即顯示
+            sloganBox?.classList.add("show");
+            
+            setTimeout(() => {
+              continued?.classList.add("show");
+            }, 400); // 桌面版：0.4秒後顯示日曆
+          }
+        }
+      }, 500); // 等待 0.5 秒讓 AOS 有機會觸發
+    }
+  });
+}, {
+  threshold: 0.3,
+  rootMargin: "0px 0px -100px 0px"
+});
+
+if (fit) {
+  fitIntersectionObserver.observe(fit);
+}
 
 const loadingOverlayPage = document.querySelector(".loading-overlay");
 
