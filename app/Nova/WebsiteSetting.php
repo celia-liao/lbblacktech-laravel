@@ -61,7 +61,7 @@ class WebsiteSetting extends Resource
                 ->help('輸入動畫時間(毫秒) 例如: 4000'),
             Text::make('Corridor Random Image Count', 'corridor_random_image_count')
                 ->sortable()
-                ->help('輸入記憶迴廊隨機張數'),
+                ->help('輸入記憶迴廊隨機張數(最少4張)'),
             Text::make('Creation Date', 'creation_date')
                 ->sortable()
                 ->help('輸入製作日期'),
