@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\BelongsTo;
+use Timothyasp\Color\Color;
 
 class WebsiteStyle extends Resource
 {
@@ -53,46 +54,46 @@ class WebsiteStyle extends Resource
             ID::make('Style ID', 'style_id')->sortable(),
             BelongsTo::make('Pet', 'pet', \App\Nova\Pet::class)
                 ->display('pet_name'), 
-            Text::make('Loading Color', 'loading_color')
+            Color::make('Loading Color', 'loading_color')->slider()
                 ->sortable()
                 ->help('loading背景顏色'),
-            Text::make('Cover Name Color', 'cover_name_color')
+            Color::make('Cover Name Color', 'cover_name_color')->slider()
                 ->sortable()
                 ->help('封面名稱的圈圈 / 一起度過的日子(數字) / 生命軌跡時間軸顏色'),
-            Text::make('Header Love Color', 'header_love_color')
+            Color::make('Header Love Color', 'header_love_color')->sketch()
                 ->sortable()
                 ->help('封面愛心顏色'),
-            Text::make('Header Footprint Color', 'header_footprint_color')
+            Color::make('Header Footprint Color', 'header_footprint_color')->slider()
                 ->sortable()
                 ->help('封面名稱的圈圈內腳印顏色'),
-            Text::make('Day Text Color', 'day_text_color')
+            Color::make('Day Text Color', 'day_text_color')->slider()
                 ->sortable()
                 ->help('生命軌跡文字 / 年紀顏色'),
-            Text::make('Title Color', 'title_color')
+            Color::make('Title Color', 'title_color')->slider()
                 ->sortable()
                 ->help('logo標題 / 標題 / footer文字顏色'),
-            Text::make('Handshake Button Color', 'handshake_button_color')
+            Color::make('Handshake Button Color', 'handshake_button_color')->slider()
                 ->sortable()
                 ->help('握手互動按鈕顏色'),
-            Text::make('Videos Button Color', 'videos_button_color')
+            Color::make('Videos Button Color', 'videos_button_color')->slider()
                 ->sortable()
                 ->help('其他互動按鈕顏色'),
-            Text::make('Bubble Ball Color', 'bubble_ball_color')
+            Color::make('Bubble Ball Color', 'bubble_ball_color')->slider()
                 ->sortable()
                 ->help('泡泡顏色'),
             Text::make('Bubble Background', 'bubble_background')
                 ->sortable()
-                ->help('泡泡背景漸層'),
-            Text::make('Footprint Color', 'footprint_color')
+                ->help('泡泡背景漸層 ex:linear-gradient(180deg, rgba(255, 241, 229, 0) 0%, rgb(255, 217, 179) 81.6%)'),
+            Color::make('Footprint Color', 'footprint_color')->slider()
                 ->sortable()
                 ->help('腳印顏色'),
-            Text::make('Footer Background Color', 'footer_background_color')
+            Color::make('Footer Background Color', 'footer_background_color')->slider()
                 ->sortable()
                 ->help('頁尾背景顏色'),
-            Text::make('Function Color', 'function_color')
+            Color::make('Function Color', 'function_color')->slider()
                 ->sortable()
                 ->help('狀態列顏色'),
-            Text::make('Function Background Color', 'function_background_color')
+            Color::make('Function Background Color', 'function_background_color')->slider()
                 ->sortable()
                 ->help('狀態列背景顏色'),
         ];
