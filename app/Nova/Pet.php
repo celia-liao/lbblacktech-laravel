@@ -57,7 +57,7 @@ class Pet extends Resource
                 ->help('輸入網站識別碼'),
             Text::make('Slogan', 'slogan')
                 ->sortable()
-                ->help('輸入給毛孩的一句話, 若要換行顯示請輸入<br>'),
+                ->help('輸入給毛孩的一句話, 若要換行顯示請輸入"&lt;br&gt;"'),
             Boolean::make('Is Active', 'is_active')
                 ->sortable()
                 ->help('勾選是否啟用網站'),
