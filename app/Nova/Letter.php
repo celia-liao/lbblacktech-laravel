@@ -55,7 +55,7 @@ class Letter extends Resource
                 ->display('pet_name'), 
             Textarea::make('Letter Content', 'letter_content')
                 ->sortable()
-                ->help('輸入信件內容'),
+                ->help('輸入信件內容, 若要換行顯示請輸入"&lt;br&gt;"'),
         ];
     }
 
