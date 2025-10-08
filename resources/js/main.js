@@ -292,8 +292,8 @@ handBtn.addEventListener("click", () => {
   } else {
     bobsArea.style.zIndex = ``;
   }
-
-  bobsImg.src = `${window.PET_ASSETS.imagePath}/main/interaction/heart.gif?${timestamp}`;
+heart
+  bobsImg.src = `/storage/pets/image/heart.gif`;
 
   timeoutId = setTimeout(() => {
     stopCurrentAction();
@@ -327,7 +327,7 @@ if (bobsImg) {
       e.propertyName === "opacity" &&
       getComputedStyle(bobsImg).opacity === "0"
     ) {
-      bobsImg.src = `${window.PET_ASSETS.imagePath}/main/interaction/air.png`;
+      bobsImg.src = `/storage/pets/image/air.png`;
     }
   });
 }

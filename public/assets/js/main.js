@@ -349,7 +349,7 @@ if (bobsImg) {
       e.propertyName === "opacity" &&
       getComputedStyle(bobsImg).opacity === "0"
     ) {
-      bobsImg.src = `${window.PET_ASSETS.imagePath}/main/interaction/air.png`;
+      bobsImg.src = `/storage/pets/image/interaction/air.png`;
     }
   });
 }
