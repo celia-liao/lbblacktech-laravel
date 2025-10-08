@@ -35,7 +35,7 @@ function createSlides(mediaList, group) {
 
     const bgImg = document.createElement("img");
     // 使用動態路徑
-    bgImg.src = `${window.PET_ASSETS ? window.PET_ASSETS.imagePath : '/storage/pets/ruby-20130701/image'}/main/film/film.png`;
+    bgImg.src = `${window.PET_ASSETS ? window.PET_ASSETS.imagePath : '/storage/pets/image/film.png'}`;
     bgImg.alt = "Background";
 
     const card = document.createElement("div");
