@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>毛小孩紀念網站 - {{ $pet->pet_name }}</title>
-    <link rel="shortcut icon" href="{{ asset('storage/pets/' . $slug . '/image/logo.svg') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('storage/pets/image/logo.svg') }}" type="image/x-icon" />
 
     <!-- META -->
     <meta name="keywords" content="信念科技有限公司 FT, 信念科技有限公司, FT, TBT, 寵物, 狗狗, 貓咪, 毛小孩, 浪浪, 寵物紀念, 寵物過世, 寵物葬儀, 紀念網站, 寵物紀念網站" />
@@ -15,7 +15,7 @@
     <meta name="copyright" content="信念科技有限公司 FT Copyright © All rights reserved." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="毛小孩紀念網站 - {{ $pet->pet_name }}" />
-    <meta property="og:image" content="{{ asset('storage/pets/' . $slug . '/image/content.webp') }}" />
+    <meta property="og:image" content="{{ asset('storage/pets/image/content.webp') }}" />
     <meta property="og:url" content="https://lbblacktech.com/{{ $slug }}" />
 
 

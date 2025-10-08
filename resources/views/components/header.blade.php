@@ -2,7 +2,7 @@
   <nav>
     <!-- id="messenger-link" -->
     <a id="dynamic-link" href="https://lbblacktech.com/form-landing-page" target="_blank" class="nav-logo">
-      <img src="{{ asset('storage/pets/' . $slug . '/image/logo.svg') }}" alt="信念科技有限公司-logo" />
+      <img src="{{ asset('storage/pets/image/logo.svg') }}" alt="信念科技有限公司-logo" />
       <div class="nav-logo-text">
         <div class="nav-logo-text-title">信念科技</div>
         <div class="nav-logo-text-subtitle">全球首創•毛孩紀念網站</div>
@@ -25,7 +25,7 @@
       </h1>
     </div>
     <div class="main-img-name" data-aos="opacity-class">
-      <img src="{{ asset('storage/pets/' . $slug . '/image/header/Union.svg') }}" alt="image" />
+      <img src="{{ asset('storage/pets/image/header/Union.svg') }}" alt="image" />
       <div class="main-img-name-area">
         <span class="main-img-name-area-pet">
           <!-- 毛孩名字 -->

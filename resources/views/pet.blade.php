@@ -21,7 +21,7 @@
       <div class="main-life-title-container">
         <h2 data-aos="title-class" data-aos-delay="150">我們一起度過了約</h2>
         <div class="main-life-title-container-img" data-aos="title-class" data-aos-delay="150">
-          <img src="{{ asset('storage/pets/' . $slug . '/image/main/date-img.svg') }}" alt="日曆" />
+          <img src="{{ asset('storage/pets/image/date-img.svg') }}" alt="日曆" />
           <span id="day">0</span>
         </div>
         <h2 data-aos="title-class" data-aos-delay="150">個日子</h2>
@@ -380,7 +380,7 @@
         </div>
       </div>
       <div class="main-life-cover-container">
-        <img src="{{ asset('storage/pets/' . $slug . '/image/main/letter/background.webp') }}" alt="背景" />
+        <img src="{{ asset('storage/pets/image/letter/background.webp') }}" alt="背景" />
       </div>
     </section>
     <section class="main-film">
@@ -437,7 +437,7 @@
         <button class="hand">握手</button>
         <button class="feed">呼喚</button>
         <button class="mute-feed" id="muteBtn">
-          <img src="{{ asset('storage/pets/' . $slug . '/image/volume-xmark-solid.svg') }}" alt="聲音開關" />
+          <img src="{{ asset('storage/pets/image/volume-xmark-solid.svg') }}" alt="聲音開關" />
         </button>
         <audio muted id="handAudio" src="{{ asset('storage/pets/' . $slug . '/audio/hand.mp3') }}"></audio>
         <audio muted id="feedAudio" src="{{ asset('storage/pets/' . $slug . '/audio/feed.mp3') }}"></audio>
@@ -454,21 +454,21 @@
       <div class="main-letter-left">
         <div class="main-letter-left-area">
           <div class="main-letter-left-area-out">
-            <img src="{{ asset('storage/pets/' . $slug . '/image/main/letter/out.png') }}" alt="信封" />
+            <img src="{{ asset('storage/pets/image/letter/out.png') }}" alt="信封" />
           </div>
           <div class="main-letter-left-area-paper" data-aos="letter-move" data-aos-anchor-placement="top-bottom">
-            <img src="{{ asset('storage/pets/' . $slug . '/image/main/letter/paper.png') }}" alt="信封紙" />
+            <img src="{{ asset('storage/pets/image/letter/paper.png') }}" alt="信封紙" />
             <p>
               <!-- 信的內容 -->
             </p>
           </div>
           <div class="main-letter-left-area-first">
-            <img src="{{ asset('storage/pets/' . $slug . '/image/main/letter/first.png') }}" alt="信封" />
+            <img src="{{ asset('storage/pets/image/letter/first.png') }}" alt="信封" />
           </div>
         </div>
       </div>
       <div class="main-letter-right" data-aos="opacity-class">
-        <img src="{{ asset('storage/pets/' . $slug . '/image/main/letter/photo/pet.webp') }}" alt="飼主與毛孩" />
+        <img src="{{ asset('storage/pets/' . $slug . '/image/letter/photo/pet.webp') }}" alt="飼主與毛孩" />
       </div>
       <div class="main-letter-footprint" id="fit-1" data-aos="opacity-class" data-aos-anchor-placement="center-bottom">
         <svg class="footprint_all footer-footprint" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 750">

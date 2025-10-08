@@ -19,6 +19,7 @@ class PetVideo extends Model
         'ratio',
         'sound',
         'category',
+        'display_order',
         'is_active',
     ];
 

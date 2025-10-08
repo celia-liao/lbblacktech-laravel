@@ -85,7 +85,9 @@ class TimelineEvent extends Resource
             Boolean::make('Is Visible', 'is_visible')
                 ->sortable()
                 ->help('勾選是否顯示'),
-            Text::make('Display Order', 'display_order')->sortable(),
+            Text::make('Display Order', 'display_order')
+                ->sortable()
+                ->help('輸入顯示順序'),
         ];
     }
 

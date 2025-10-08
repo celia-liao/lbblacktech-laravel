@@ -68,6 +68,7 @@ class PhotoGallery extends Resource
                     'bubble_large' => 'Bubble Large',
                     'loading_people' => 'Loading People',
                     'loading_pet' => 'Loading Pet',
+                    'letter_photo' => 'Letter Photo',
                 ])
                 ->sortable()
                 ->help('選擇照片類別'),

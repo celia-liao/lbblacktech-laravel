@@ -12,9 +12,11 @@ class Pet extends Model
     protected $primaryKey = 'pet_id';
 
     protected $fillable = [
-        'pet_name', 'pet_type', 'breed', 'birth_date', 'death_date',
-        'main_photo', 'website_slug', 'owner_name',
-        'owner_email', 'is_active'
+        'pet_name',
+        'breed',
+        'website_slug',
+        'slogan',
+        'is_active'
     ];
 
     // 定義與其他模型的關聯

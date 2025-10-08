@@ -82,6 +82,15 @@ class PhotoGallerySeeder extends Seeder
                 'display_order' => 1,
                 'is_active' => true,
             ]);
+
+            // 信件照片 (letter_photo)
+            PhotoGallery::create([
+                'pet_id' => $pet->pet_id,
+                'photo_path' => 'pet.webp',
+                'photo_category' => 'letter_photo',
+                'display_order' => 1,
+                'is_active' => true,
+            ]);
         }
     }
 }

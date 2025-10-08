@@ -13,10 +13,11 @@ class PhotoGallery extends Model
     protected $primaryKey = 'photo_id';
 
     protected $fillable = [
-        'pet_id', 'gallery_name', 'photo_path', 'photo_title',
-        'photo_caption', 'photo_category', 'file_size', 'file_type',
-        'width', 'height', 'upload_date', 'display_order',
-        'is_visible', 'view_count'
+        'pet_id',
+        'photo_path',
+        'photo_category',
+        'display_order',
+        'is_active'
     ];
 
     protected static function booted()
@@ -38,6 +39,6 @@ class PhotoGallery extends Model
 
     public function getStoragePath($filename)
     {
-        return $this->getLifeSlideImageUrl($filename);
+        return $this->getPhotoGalleryImageUrl($filename);
     }
 }
