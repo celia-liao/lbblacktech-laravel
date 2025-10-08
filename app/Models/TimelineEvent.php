@@ -42,7 +42,12 @@ class TimelineEvent extends Model
             foreach (['background', 'event_photo', 'original_image'] as $field) {
                 if (request()->hasFile($field)) {
                     // 用 Trait 的方法來存檔
-                    $type = $field === 'event_photo' ? 'photo' : $field;
+                    // 將欄位名稱映射到對應的 type
+                    $type = match ($field) {
+                        'event_photo' => 'photo',
+                        'original_image' => 'original',
+                        default => $field,
+                    };
                     $event->$field = $event->storePetImage(request()->file($field), $type);
                 }
             }
