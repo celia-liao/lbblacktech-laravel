@@ -18,11 +18,11 @@
 
 
           <div class="calendar-original" data-aos="opacity-class" data-aos-anchor="footer .right" data-aos-delay="3000">
-            <img src="{{ asset('storage/pets/' . $slug . '/image/main/date-img.svg') }}" alt="日歷">
+            <img src="{{ asset('storage/pets/image/date-img.svg') }}" alt="日歷">
             <p class="footer-time day">485</p>
           </div>
           <div class="calendar-again" data-aos="opacity-class" data-aos-anchor="footer .right" data-aos-delay="3000">
-            <img src="{{ asset('storage/pets/' . $slug . '/image/main/date-img.svg') }}" alt="日歷">
+            <img src="{{ asset('storage/pets/image/date-img.svg') }}" alt="日歷">
             <p class="footer-time day" id="calendar-again-day-wrapper">
               <span class="calendar-plus">+</span><span id="calendar-again-day"></span>
             </p>

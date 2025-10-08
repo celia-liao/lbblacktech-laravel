@@ -468,7 +468,7 @@
         </div>
       </div>
       <div class="main-letter-right" data-aos="opacity-class">
-        <img src="{{ asset('storage/pets/' . $slug . '/image/letter/photo/pet.webp') }}" alt="飼主與毛孩" />
+        <img src="{{ asset('storage/pets/' . $slug . '/image/main/letter/photo/pet.webp') }}" alt="飼主與毛孩" />
       </div>
       <div class="main-letter-footprint" id="fit-1" data-aos="opacity-class" data-aos-anchor-placement="center-bottom">
         <svg class="footprint_all footer-footprint" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 670 750">

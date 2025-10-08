@@ -160,8 +160,8 @@ muteBtn.addEventListener("click", () => {
   videoElement.muted = !videoElement.muted;
 
   muteBtnImg.src = videoElement.muted
-    ? `${window.PET_ASSETS.imagePath}/volume-xmark-solid.svg`
-    : `${window.PET_ASSETS.imagePath}/volume-high-solid.svg`;
+    ? `/storage/pets/image/volume-xmark-solid.svg`
+    : `/storage/pets/image/volume-high-solid.svg`;
 });
 
 
