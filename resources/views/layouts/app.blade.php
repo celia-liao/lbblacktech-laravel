@@ -26,51 +26,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- 字型載入加速 - 增强版 -->
+    <!-- 字型載入加速 -->
     <link rel="preload" href="{{ asset('assets/fonts/ChenYuluoyan-Thin.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous" />
     <link rel="preload" href="{{ asset('assets/fonts/GenSenRounded2TW-B-subset.otf') }}" as="font" type="font/otf" crossorigin="anonymous" />
     <link rel="preload" href="{{ asset('assets/fonts/GenSenRounded2TW-R-subset.otf') }}" as="font" type="font/otf" crossorigin="anonymous" />
-    
-    <!-- 字体加载备用方案 -->
-    <link rel="preconnect" href="{{ asset('assets/fonts/') }}" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300..700&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 
     <style>
-        /* 手寫體 - 增强版 */
+        /* 手寫體 */
         @font-face {
             font-family: "hand";
-            src: url("{{ asset('assets/fonts/ChenYuluoyan-Thin.ttf') }}") format("truetype");
+            src: url("/assets/fonts/ChenYuluoyan-Thin.ttf");
             font-weight: normal;
             font-style: normal;
-            font-display: swap; /* 优化字体加载性能 */
         }
 
-        /* 思源圓體 Bold - 增强版 */
+        /* 思源圓體 Bold */
         @font-face {
             font-family: "roundB";
-            src: url("{{ asset('assets/fonts/GenSenRounded2TW-B-subset.otf') }}") format("opentype");
+            src: url("/assets/fonts/GenSenRounded2TW-B-subset.otf");
             font-weight: bold;
             font-style: normal;
-            font-display: swap;
         }
 
-        /* 思源圓體 Regular - 增强版 */
+        /* 思源圓體 Regular */
         @font-face {
             font-family: "roundR";
-            src: url("{{ asset('assets/fonts/GenSenRounded2TW-R-subset.otf') }}") format("opentype");
+            src: url("/assets/fonts/GenSenRounded2TW-R-subset.otf");
             font-weight: normal;
             font-style: normal;
-            font-display: swap;
-        }
-        
-        /* 字体加载检测和优化 */
-        .font-loading {
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-        
-        .font-loaded {
-            font-family: 'hand', 'Noto Sans TC', sans-serif;
         }
     </style>
 
@@ -131,24 +116,6 @@
                 utm: '{{ Vite::asset("resources/js/utm.js") }}'
             }
         };
-        
-        // 字体加载检测和优化
-        document.addEventListener('DOMContentLoaded', function() {
-            // 检测自定义字体是否加载成功
-            if ('fonts' in document) {
-                document.fonts.load('normal 16px hand').then(function() {
-                    console.log('手写体字体加载成功');
-                    document.body.classList.add('font-loaded');
-                    document.body.classList.remove('font-loading');
-                }).catch(function() {
-                    console.warn('手写体字体加载失败，使用备用字体');
-                    document.body.classList.add('font-loading');
-                });
-            } else {
-                // 备用方案：直接应用字体
-                document.body.classList.add('font-loaded');
-            }
-        });
     </script>
 
     <!-- 所有 JavaScript 文件現在通過 setting.js 動態載入 -->

@@ -17,8 +17,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
 
-        // 注入自定义 CSS 到 Nova，让编辑器套用自定义字体
-        Nova::style('custom-fonts', public_path('css/nova-custom.css'));
+        //
     }
 
     /**

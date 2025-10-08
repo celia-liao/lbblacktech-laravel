@@ -23,34 +23,3 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
-
-# ================================================
-# 字体文件 CORS 和 MIME 类型配置
-# 解决服务器环境字体加载问题
-# ================================================
-
-<IfModule mod_headers.c>
-    # 允许字体文件的跨域请求
-    <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font.css)$">
-        Header set Access-Control-Allow-Origin "*"
-        Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-        Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    </FilesMatch>
-</IfModule>
-
-<IfModule mod_mime.c>
-    # 确保字体文件的正确 MIME 类型
-    AddType font/ttf .ttf
-    AddType font/otf .otf
-    AddType font/woff .woff
-    AddType font/woff2 .woff2
-    AddType application/vnd.ms-fontobject .eot
-</IfModule>
-
-<IfModule mod_expires.c>
-    # 字体文件缓存设置
-    <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2)$">
-        ExpiresActive On
-        ExpiresDefault "access plus 1 year"
-    </FilesMatch>
-</IfModule>
