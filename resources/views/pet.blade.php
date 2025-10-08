@@ -429,7 +429,7 @@
           </div>
         </div>
         <div class="main-bobs-area-img">
-          <img src="{{ asset('storage/pets/image//air.png') }}" alt="握手" class="bg-img" />
+          <img src="{{ asset('storage/pets/image/air.png') }}" alt="握手" class="bg-img" />
           <img src="{{ asset('storage/pets/' . $slug . '/image/main/interaction/photo/hand-p.webp') }}" alt="握手" class="hand-img" />
         </div>
       </div>

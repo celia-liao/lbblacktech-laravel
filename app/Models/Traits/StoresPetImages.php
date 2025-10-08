@@ -83,6 +83,9 @@ trait StoresPetImages
             'bubble_large' => "image/main/bobs/photo/original",
             'loading_people' => "image/loading/people",
             'loading_pet' => "image/loading/pet",
+            'hand_n' => "image/main/interaction/photo",
+            'hand_p' => "image/main/interaction/photo",
+            'letter_photo' => "image/main/letter/photo",
             default => "uploads",
         };
 
