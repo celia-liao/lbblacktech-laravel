@@ -1,6 +1,11 @@
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import PhotoSwipe from 'photoswipe';
 
+// 全局變量聲明
+let hasScrolledMainLife = false;
+let isInsideMainLifeScroll = false;
+let savedInnerScrollProgress = 0;
+
 // 泡泡區域動畫
 let mainBobs = document.querySelector(".main-bobs");
 let bob1 = mainBobs.querySelector(".main-bobs-area-box-1-bob");
@@ -292,7 +297,7 @@ handBtn.addEventListener("click", () => {
   } else {
     bobsArea.style.zIndex = ``;
   }
-heart
+
   bobsImg.src = `/storage/pets/image/heart.gif`;
 
   timeoutId = setTimeout(() => {
