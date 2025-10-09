@@ -203,7 +203,10 @@ function stopCurrentAction() {
 
   currentAction = null;
 }
-feedBtn.addEventListener("click", () => {
+// 舊的 feedBtn 事件監聽器已被移除，使用事件委托（在文件末尾）
+// 禁用此監聽器以避免與動態按鈕衝突
+if (false && feedBtn) {
+  feedBtn.addEventListener("click", () => {
   muteBtn.style.visibility = "visible";
   muteBtn.style.opacity = 1;
   if (currentAction === "feed") return;
@@ -263,9 +266,11 @@ feedBtn.addEventListener("click", () => {
       stopCurrentAction();
     });
   }
-});
+  });
+}
 
-handBtn.addEventListener("click", () => {
+if (handBtn) {
+  handBtn.addEventListener("click", () => {
   muteBtn.style.visibility = "unset";
   muteBtn.style.opacity = 1;
   if (currentAction === "hand") return;
@@ -303,7 +308,8 @@ handBtn.addEventListener("click", () => {
   timeoutId = setTimeout(() => {
     stopCurrentAction();
   }, 3200);
-});
+  });
+}
 
 if (bobsVideoArea) {
   bobsVideoArea.addEventListener("transitionend", function (e) {
@@ -881,3 +887,84 @@ document.addEventListener("touchmove", (e) => {
 
 window.addEventListener("resize", refreshBob);
 window.addEventListener("load", refreshBob);
+
+// 動態按鈕事件委托 - 處理隨機選取的影片按鈕
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("feed") && e.target.dataset.videoIndex !== undefined) {
+    const button = e.target;
+    const videoIndex = parseInt(button.dataset.videoIndex);
+    const videoSrc = button.dataset.videoSrc;
+    const videoRatio = button.dataset.videoRatio;
+    const videoSound = button.dataset.videoSound === 'true';
+        
+    if (muteBtn) {
+      muteBtn.style.visibility = "visible";
+      muteBtn.style.opacity = 1;
+    }
+    
+    if (currentAction === "feed") return;
+    stopCurrentAction();
+    currentAction = "feed";
+
+    if (bobsVideoArea) {
+      bobsVideoArea.style.display = "flex";
+      requestAnimationFrame(() => {
+        bobsVideoArea.classList.add("view");
+      });
+    }
+
+    if (bobsVideo) {
+      // 移除之前的 ended 事件監聽器（避免重複添加）
+      bobsVideo.onended = null;
+      
+      // 設置影片比例
+      const videoArea = document.querySelector(".main-video-area");
+      if (videoArea) {
+        videoArea.classList.remove('tall', 'long');
+        if (videoRatio) {
+          videoArea.classList.add(videoRatio);
+        }
+      }
+      
+      // 設置聲音
+      bobsVideo.muted = !videoSound;
+      
+      // 設置影片來源並播放
+      bobsVideo.src = videoSrc;
+      bobsVideo.currentTime = 0;
+      bobsVideo.load(); // 確保載入新的影片
+      
+      bobsVideo.play().then(() => {
+        requestAnimationFrame(() => {
+          bobsVideo.classList.add("view");
+        });
+      }).catch((error) => {
+        console.error('影片播放失敗:', error);
+      });
+      
+      // 設置 ended 事件（只設置一次）
+      bobsVideo.onended = () => {
+        if (bobsVideoArea) {
+          bobsVideoArea.classList.remove("view");
+        }
+        if (bobsVideo) {
+          bobsVideo.classList.remove("view");
+          bobsVideo.pause();
+          bobsVideo.currentTime = 0;
+        }
+        stopCurrentAction();
+      };
+    }
+
+    if (!isMuted && feedAudio) {
+      feedAudio.currentTime = 0;
+      feedAudio.play();
+    }
+
+    if (window.innerWidth <= 768) {
+      if (bobsArea) bobsArea.style.zIndex = 6;
+    } else {
+      if (bobsArea) bobsArea.style.zIndex = ``;
+    }
+  }
+});
