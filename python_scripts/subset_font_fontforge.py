@@ -25,7 +25,6 @@ def main():
     output_font_path = sys.argv[2]
     keep_chars_path = sys.argv[3]
 
-    # 檢查輸入檔案是否存在
     if not os.path.exists(input_font_path):
         print(f"[ERROR] Input font not found: {input_font_path}", file=sys.stderr)
         sys.exit(1)
@@ -34,26 +33,21 @@ def main():
         print(f"[ERROR] Keep chars file not found: {keep_chars_path}", file=sys.stderr)
         sys.exit(1)
 
-    # 確保輸出目錄存在
     output_dir = os.path.dirname(output_font_path)
     if output_dir and not os.path.exists(output_dir):
         os.makedirs(output_dir, exist_ok=True)
 
     try:
-        # 讀取要保留的字元
         with open(keep_chars_path, "r", encoding="utf-8") as f:
             keep_chars = set(f.read().strip())
 
-        # 檢查 keep_chars 是否為空
         if not keep_chars:
             print("[ERROR] keep_chars.txt is empty, no glyphs will be kept!", file=sys.stderr)
             sys.exit(1)
 
-        # 開啟字體
         font = fontforge.open(input_font_path)
         print(f"[INFO] Processing font: {input_font_path}")
 
-        # 記錄所有要保留的 Glyph Name
         keep_glyphs = set()
 
         for char in keep_chars:
@@ -63,31 +57,29 @@ def main():
                 selected_glyphs = [g.glyphname for g in font.selection.byGlyphs]
                 if selected_glyphs:
                     keep_glyphs.update(selected_glyphs)
-                # 移除輸出避免編碼錯誤
-            except Exception as e:
-                # 移除輸出避免編碼錯誤
+            except Exception:
                 pass
 
         print(f"[INFO] Glyphs to keep: {len(keep_glyphs)}")
 
-        # 刪除未選擇的字
         removed_count = 0
-        for glyph in font.glyphs():
+        for glyph in list(font.glyphs()):
             if glyph.glyphname != ".notdef" and glyph.glyphclass != "mark" and glyph.glyphname not in keep_glyphs:
                 font.removeGlyph(glyph)
                 removed_count += 1
 
         print(f"[INFO] Removed {removed_count} glyphs")
 
-        # 產生字體檔案
-        font.generate(output_font_path)
-        
-        # 取得輸出檔案大小
-        output_size = os.path.getsize(output_font_path)
-        output_size_kb = output_size / 1024
-        
+        # 🚀 這兩行是關鍵修正！
+        font.encoding = "UnicodeFull"  # 重建 Unicode 對應表
+        font.selection.none()          # 清空選擇，避免影響輸出
+
+        # 🚀 使用 OpenType flag 生成子集字體
+        font.generate(output_font_path, flags=("opentype",))
+
+        output_size = os.path.getsize(output_font_path) / 1024
         print(f"[SUCCESS] Font saved: {output_font_path}")
-        print(f"[INFO] File size: {output_size_kb:.1f} KB")
+        print(f"[INFO] File size: {output_size:.1f} KB")
         print(f"[INFO] Kept glyphs: {len(keep_glyphs)}")
 
         font.close()
@@ -101,4 +93,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
