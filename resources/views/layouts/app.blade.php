@@ -27,9 +27,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- 字型載入加速 -->
-    <link rel="preload" href="{{ asset('assets/fonts/ChenYuluoyan-Thin.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous" />
-    <link rel="preload" href="{{ asset('assets/fonts/GenSenRounded2TW-B-subset.otf') }}" as="font" type="font/otf" crossorigin="anonymous" />
-    <link rel="preload" href="{{ asset('assets/fonts/GenSenRounded2TW-R-subset.otf') }}" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="preload" href="{{ asset('storage/pets/' . $slug . '/font/ChenYuluoyan-Thin.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous" />
+    <link rel="preload" href="{{ asset('storage/pets/' . $slug . '/font/GenSenRounded2TW-B-subset.otf') }}" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="preload" href="{{ asset('storage/pets/' . $slug . '/font/GenSenRounded2TW-R-subset.otf') }}" as="font" type="font/otf" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Akshar:wght@300..700&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 
@@ -37,7 +37,7 @@
         /* 手寫體 */
         @font-face {
             font-family: "hand";
-            src: url("/assets/fonts/ChenYuluoyan-Thin.ttf");
+            src: url("{{ asset('storage/pets/' . $slug . '/font/ChenYuluoyan-Thin.ttf') }}");
             font-weight: normal;
             font-style: normal;
         }
@@ -45,7 +45,7 @@
         /* 思源圓體 Bold */
         @font-face {
             font-family: "roundB";
-            src: url("/assets/fonts/GenSenRounded2TW-B-subset.otf");
+            src: url("{{ asset('storage/pets/' . $slug . '/font/GenSenRounded2TW-B-subset.otf') }}");
             font-weight: bold;
             font-style: normal;
         }
@@ -53,7 +53,7 @@
         /* 思源圓體 Regular */
         @font-face {
             font-family: "roundR";
-            src: url("/assets/fonts/GenSenRounded2TW-R-subset.otf");
+            src: url("{{ asset('storage/pets/' . $slug . '/font/GenSenRounded2TW-R-subset.otf') }}");
             font-weight: normal;
             font-style: normal;
         }

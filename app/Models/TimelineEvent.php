@@ -52,5 +52,31 @@ class TimelineEvent extends Model
                 }
             }
         });
+
+        // 儲存後生成 GenSenRounded 字體
+        static::saved(function ($event) {
+            // 只有當 event_title 或 event_description 存在時才執行
+            if (!empty($event->event_title) || !empty($event->event_description)) {
+                // 獲取關聯的 Pet
+                $pet = $event->pet;
+                
+                if ($pet && !empty($pet->website_slug)) {
+                    try {
+                        \App\Services\FontSubsetService::generateGenSenRoundedSubset(
+                            $pet->website_slug
+                        );
+                    } catch (\Exception $e) {
+                        // 記錄錯誤但不中斷流程
+                        \Illuminate\Support\Facades\Log::error('TimelineEvent 字體子集生成失敗：' . $e->getMessage(), [
+                            'event_id' => $event->event_id,
+                            'pet_id' => $event->pet_id,
+                            'slug' => $pet->website_slug,
+                            'title' => $event->event_title,
+                            'description' => $event->event_description
+                        ]);
+                    }
+                }
+            }
+        });
     }
 }

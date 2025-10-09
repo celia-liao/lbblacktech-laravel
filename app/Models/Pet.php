@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Pet extends Model
 {
@@ -55,7 +56,32 @@ class Pet extends Model
         return $this->hasOne(\App\Models\WebsiteStyle::class, 'pet_id'); 
     }
 
-
-
-
+    /**
+     * 模型啟動方法
+     * 當儲存 Pet 時自動生成字體子集
+     */
+    protected static function booted()
+    {
+        static::saving(function ($pet) {
+            // 只有當 slogan 和 website_slug 都存在時才執行
+            if (!empty($pet->slogan) && !empty($pet->website_slug)) {
+                try {
+                    \App\Services\FontSubsetService::generateSubset(
+                        $pet->slogan, 
+                        $pet->website_slug
+                    );
+                } catch (\Exception $e) {
+                    // 記錄錯誤但不中斷儲存流程
+                    Log::error('字體子集生成失敗：' . $e->getMessage(), [
+                        'pet_id' => $pet->pet_id,
+                        'slug' => $pet->website_slug,
+                        'slogan' => $pet->slogan
+                    ]);
+                    
+                    // 如果需要中斷儲存，可以拋出異常
+                    // throw $e;
+                }
+            }
+        });
+    }
 }
