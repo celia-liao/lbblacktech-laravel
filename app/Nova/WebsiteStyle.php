@@ -83,7 +83,7 @@ class WebsiteStyle extends Resource
                 ->help('泡泡顏色'),
             Text::make('Bubble Background', 'bubble_background')
                 ->sortable()
-                ->help('泡泡背景漸層 ex:linear-gradient(180deg, rgba(255, 241, 229, 0) 0%, rgb(255, 217, 179) 81.6%)'),
+                ->help('泡泡背景漸層：http://ourownthing.co.uk/gradpad.html#'),
             Color::make('Footprint Color', 'footprint_color')->sketch()
                 ->sortable()
                 ->help('腳印顏色'),
