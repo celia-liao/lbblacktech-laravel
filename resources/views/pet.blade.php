@@ -434,7 +434,8 @@
         </div>
       </div>
       <div class="main-bobs-buttons" data-aos="scale-class" data-aos-delay="350" data-aos-offset="120">
-        <button class="hand">握手</button>
+        <button class="hand" style="display: none !important">握手</button>
+        <button class="feed">呼喚</button>
         <button class="feed">呼喚</button>
         <button class="mute-feed" id="muteBtn">
           <img src="{{ asset('storage/pets/image/volume-xmark-solid.svg') }}" alt="聲音開關" />
