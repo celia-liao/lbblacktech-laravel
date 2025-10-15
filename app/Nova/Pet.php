@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\HasMany;
@@ -55,6 +56,20 @@ class Pet extends Resource
             Text::make('Website Slug', 'website_slug')
                 ->sortable()
                 ->help('輸入網站識別碼'),
+            Text::make('LINE User ID', 'line_user_id')
+                ->sortable()
+                ->help('輸入LINE用戶ID'),
+            Select::make('Personality', 'personality')
+                ->options([
+                    'sunny' => '☀️ 陽光型 - 開朗活潑忠誠樂觀',
+                    'foodie' => '🍖 吃貨型 - 貪吃可愛撒嬌',
+                    'tsundere' => '😼 傲嬌型 - 外冷內熱',
+                    'easygoing' => '🌸 隨和型 - 溫柔穩重（預設）',
+                    'otaku' => '🏠 宅宅型 - 宅黏人依賴主人',
+                ])
+                ->displayUsingLabels()
+                ->sortable()
+                ->help('選擇寵物個性類型，影響LINE聊天機器人的說話方式'),
             Text::make('Slogan', 'slogan')
                 ->sortable()
                 ->help('輸入給毛孩的一句話, 若要換行顯示請輸入"&lt;br&gt;"'),

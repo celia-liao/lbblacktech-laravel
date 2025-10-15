@@ -16,6 +16,8 @@ class Pet extends Model
         'pet_name',
         'breed',
         'website_slug',
+        'line_user_id',
+        'personality',
         'slogan',
         'is_active'
     ];
@@ -54,6 +56,32 @@ class Pet extends Model
     public function websiteStyle()
     {
         return $this->hasOne(\App\Models\WebsiteStyle::class, 'pet_id'); 
+    }
+
+    /**
+     * 獲取寵物個性的完整資訊
+     * 
+     * @return array|null
+     */
+    public function getPersonalityInfo()
+    {
+        if (!$this->personality) {
+            return null;
+        }
+        
+        $personalities = config('pet_personalities');
+        return $personalities[$this->personality] ?? null;
+    }
+
+    /**
+     * 獲取個性名稱
+     * 
+     * @return string|null
+     */
+    public function getPersonalityNameAttribute()
+    {
+        $info = $this->getPersonalityInfo();
+        return $info ? $info['名稱'] : null;
     }
 
     /**
