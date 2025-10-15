@@ -50,7 +50,7 @@ class FontSubsetService
         }
         
         // Python 腳本路徑
-        $scriptPath = base_path('python_scripts/subset_font_fontforge.py');
+        $scriptPath = base_path('python_scripts/subset_font_pyftsubset.py');
         
         // 輸入字體路徑（完整字體檔案）
         // 使用 public/assets/fonts 下的字體作為輸入
@@ -81,11 +81,9 @@ class FontSubsetService
             throw new \RuntimeException("Python 腳本不存在：{$scriptPath}");
         }
         
-        // 執行 fontforge 腳本
-        // 使用 fontforge -script 來執行 Python 腳本
+        // 執行 Python 腳本 (內部使用 pyftsubset 命令)
         $process = new Process([
-            'fontforge',
-            '-script',
+            'python3',
             $scriptPath,
             $inputFont,
             $outputFont,
@@ -207,7 +205,7 @@ class FontSubsetService
         $fontFileName = "GenSenRounded2TW-{$weight}-subset.otf";
         
         // Python 腳本路徑
-        $scriptPath = base_path('python_scripts/subset_font_fontforge.py');
+        $scriptPath = base_path('python_scripts/subset_font_pyftsubset.py');
         
         // 輸入字體路徑
         $inputFont = public_path("assets/fonts/GenSenRounded2TW-{$weight}-subset.otf");
@@ -237,10 +235,9 @@ class FontSubsetService
             throw new \RuntimeException("Python 腳本不存在：{$scriptPath}");
         }
         
-        // 執行 fontforge 腳本
+        // 執行 Python 腳本 (內部使用 pyftsubset)
         $process = new Process([
-            'fontforge',
-            '-script',
+            'python3',
             $scriptPath,
             $inputFont,
             $outputFont,
