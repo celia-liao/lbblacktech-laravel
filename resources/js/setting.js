@@ -280,7 +280,7 @@ async function getPet(data) {
     if (letterContent) {
         const letterTextElement = document.querySelector(".main-letter-left-area-paper p");
         if (letterTextElement) {
-            letterTextElement.textContent = letterContent;
+            letterTextElement.innerHTML = letterContent;
         }
     }
 }
