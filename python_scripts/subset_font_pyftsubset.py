@@ -14,6 +14,8 @@
 import sys
 import os
 import subprocess
+import shutil
+import traceback
 
 def main():
     if len(sys.argv) < 4:
@@ -25,7 +27,7 @@ def main():
     output_font_path = sys.argv[2]
     keep_chars_path = sys.argv[3]
 
-    # 檢查輸入
+    # 檢查輸入檔
     if not os.path.exists(input_font_path):
         print(f"[ERROR] Input font not found: {input_font_path}", file=sys.stderr)
         sys.exit(1)
@@ -50,15 +52,20 @@ def main():
 
         print(f"[INFO] Processing font: {input_font_path}")
         print(f"[INFO] Text length: {len(keep_text)} characters")
-        
+
         # 建立要保留的 Unicode 集合
         unicodes = sorted(set(ord(char) for char in keep_text))
         unicode_str = ','.join(f'U+{u:04X}' for u in unicodes)
-        
+
         print(f"[INFO] Unique characters: {len(unicodes)}")
-        
-        # 使用 pyftsubset 命令（使用完整路徑）
-        pyftsubset_path = '/opt/homebrew/bin/pyftsubset'
+
+        # 找 pyftsubset 路徑
+        pyftsubset_path = shutil.which("pyftsubset")
+        if not pyftsubset_path:
+            print("[ERROR] pyftsubset not found in PATH. Please install fonttools.", file=sys.stderr)
+            sys.exit(1)
+
+        # 準備命令
         cmd = [
             pyftsubset_path,
             input_font_path,
@@ -76,34 +83,33 @@ def main():
             '--no-hinting',
             '--desubroutinize'
         ]
-        
+
         # 執行命令
         result = subprocess.run(cmd, capture_output=True, text=True)
-        
+
         if result.returncode != 0:
             print(f"[ERROR] pyftsubset failed", file=sys.stderr)
-            print(f"[ERROR] {result.stderr}", file=sys.stderr)
+            print(result.stderr, file=sys.stderr)
             sys.exit(1)
-        
+
         # 檢查輸出檔案
         if not os.path.exists(output_font_path):
             print("[ERROR] Output font file was not created", file=sys.stderr)
             sys.exit(1)
-        
+
         # 輸出資訊
         output_size = os.path.getsize(output_font_path) / 1024
         print(f"[SUCCESS] Font saved: {output_font_path}")
         print(f"[INFO] File size: {output_size:.1f} KB")
         print(f"[INFO] Kept glyphs: {len(unicodes)}")
-        
+
         sys.exit(0)
 
     except Exception as e:
         print(f"[ERROR] {str(e)}", file=sys.stderr)
-        import traceback
         traceback.print_exc(file=sys.stderr)
         sys.exit(1)
 
+
 if __name__ == '__main__':
     main()
-
