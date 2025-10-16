@@ -66,6 +66,8 @@ trait StoresPetImages
                 return asset("storage/pets/{$slug}/image/loading/people/{$filename}");
             case 'loading_pet':
                 return asset("storage/pets/{$slug}/image/loading/pet/{$filename}");
+            case 'letter_photo':
+                return asset("storage/pets/{$slug}/image/main/letter/photo/{$filename}");
             default:
                 return asset("storage/pets/{$slug}/uploads/{$filename}");
         }
@@ -142,12 +144,20 @@ trait StoresPetImages
     }
 
     /* Pet Video */
-    public function getPetVideoUrl(?string $filename, ): ?string
+    public function getPetVideoUrl(?string $filename): ?string
     {
         if (!$filename) return null;
 
         $slug = $this->pet->website_slug ?? 'default';
-        return asset("storage/pets/{$slug}/image/main/interaction/photo/{$filename}");
+        
+        // 根據 category 決定路徑
+        $subPath = match ($this->category) {
+            'header' => "image/header/photo",
+            'bubble' => "image/main/interaction/photo",
+            default => "image/main/interaction/photo",
+        };
+        
+        return asset("storage/pets/{$slug}/{$subPath}/{$filename}");
     }
 
     public function storePetVideo(UploadedFile $file): string
@@ -155,8 +165,15 @@ trait StoresPetImages
         // 從關聯的 Pet 取得 slug，如果沒有就用 default
         $slug = $this->pet->website_slug ?? 'default';
 
+        // 根據 category 決定子路徑
+        $subPath = match ($this->category) {
+            'header' => "image/header/photo",
+            'bubble' => "image/main/interaction/photo",
+            default => "image/main/interaction/photo",
+        };
+
         // 組合完整路徑
-        $path = "pets/{$slug}/image/main/interaction/photo";
+        $path = "pets/{$slug}/{$subPath}";
 
         // 使用原始文件名
         $filename = $file->getClientOriginalName();

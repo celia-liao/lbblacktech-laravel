@@ -25,7 +25,10 @@ export default defineConfig({
                 'resources/js/new-scroll.js',
                 'resources/js/video-or-img.js',
                 'resources/js/footer-slogan.js',
-                'resources/js/utm.js'
+                'resources/js/utm.js',
+                'resources/js/music.js',
+                'resources/js/function.js',
+                'resources/js/copyright.js',
             ],
             refresh: true,
         }),

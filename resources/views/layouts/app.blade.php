@@ -113,20 +113,15 @@
                 newScroll: '{{ Vite::asset("resources/js/new-scroll.js") }}',
                 videoOrImg: '{{ Vite::asset("resources/js/video-or-img.js") }}',
                 footerSlogan: '{{ Vite::asset("resources/js/footer-slogan.js") }}',
-                utm: '{{ Vite::asset("resources/js/utm.js") }}'
+                utm: '{{ Vite::asset("resources/js/utm.js") }}',
+                music: '{{ Vite::asset("resources/js/music.js") }}',
+                function: '{{ Vite::asset("resources/js/function.js") }}',
+                copyright: '{{ Vite::asset("resources/js/copyright.js") }}'
             }
         };
     </script>
 
     <!-- 所有 JavaScript 文件現在通過 setting.js 動態載入 -->
-
-    <!-- 音樂 -->
-    <script src="https://lbblacktech.com/assets/js/music-20250324.js?v=2025.04.15"></script>
-    <!-- 功能列 -->
-    <script src="https://lbblacktech.com/assets/js/function-20250324.js?v=2025.04.15"></script>
-    <!-- <script src="https://lbblacktech.com/assets/js/messenger.js?v=2025.04.15"></script> -->
-    <!-- 版權 -->
-    <script src="https://lbblacktech.com/assets/js/copyright.js?v=2025.04.15"></script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>

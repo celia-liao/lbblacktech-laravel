@@ -59,7 +59,7 @@ class WebsiteStyle extends Resource
                 ->help('loading背景顏色'),
             Color::make('Cover Name Color', 'cover_name_color')->sketch()
                 ->sortable()
-                ->help('一起度過的日子(數字) / 生命軌跡時間軸顏色'),
+                ->help('封面名稱的圈圈 / 一起度過的日子(數字) / 生命軌跡時間軸顏色'),
             Color::make('Header Love Color', 'header_love_color')->sketch()
                 ->sortable()
                 ->help('封面愛心顏色'),

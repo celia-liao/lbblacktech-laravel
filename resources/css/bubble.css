@@ -432,10 +432,10 @@
   }
 }
 .main-bobs-buttons button.hand {
-  background-color: #cc96ff;
+  /* background-color: #cc96ff; 移除硬编码颜色，由JavaScript动态设置 */
+  /* outline: 5px solid #cc96ff; 移除硬编码outline，由JavaScript动态设置 */
   color: white;
   border: 2px solid #fedfd1;
-  outline: 5px solid #cc96ff;
   transition: all 0.2s linear;
   margin: 0lvw 3lvw;
 }
@@ -444,15 +444,15 @@
     margin: unset;
   }
 }
-.main-bobs-buttons button.hand:hover {
-  background-color: #c46cf4;
-  outline: 5px solid #c46cf4;
-}
+/* .main-bobs-buttons button.hand:hover {
+  background-color: #c46cf4; 移除硬编码hover颜色，由JavaScript动态设置
+  outline: 5px solid #c46cf4; 移除硬编码hover outline，由JavaScript动态设置
+} */
 .main-bobs-buttons button.feed {
-  background-color: #ff91bf;
+  /* background-color: #ff91bf; 移除硬编码颜色，由JavaScript动态设置 */
+  /* outline: 5px solid #ff91bf; 移除硬编码outline，由JavaScript动态设置 */
   color: white;
   border: 2px solid #fedfd1;
-  outline: 5px solid #ff91bf;
   margin: 0lvw 3lvw;
   transition: all 0.2s linear;
 }
@@ -461,10 +461,10 @@
     margin: unset;
   }
 }
-.main-bobs-buttons button.feed:hover {
-  background-color: #ff7d88;
-  outline: 5px solid #ff7d88;
-}
+/* .main-bobs-buttons button.feed:hover {
+  background-color: #ff7d88; 移除硬编码hover颜色，由JavaScript动态设置
+  outline: 5px solid #ff7d88; 移除硬编码hover outline，由JavaScript动态设置
+} */
 .main-bobs-buttons button.mute {
   visibility: hidden !important;
   border: unset;

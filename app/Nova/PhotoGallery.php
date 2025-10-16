@@ -69,9 +69,8 @@ class PhotoGallery extends Resource
                     'loading_people' => 'Loading People',
                     'loading_pet' => 'Loading Pet',
                     'letter_photo' => 'Letter Photo',
-                    'hand_n' => 'Hand N',
-                    'hand_p' => 'Hand P'
                 ])
+                ->displayUsingLabels()
                 ->sortable()
                 ->help('選擇照片類別'),
             Text::make('Display Order', 'display_order')

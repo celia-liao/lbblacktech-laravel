@@ -60,11 +60,12 @@ if (calendar) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// 立即執行初始化
+(function initFooterDay() {
     const dayElement = document.querySelector(
         ".calendar-original .footer-time.day"
     );
     if (dayElement && typeof window.targetNumber !== "undefined") {
         dayElement.textContent = window.targetNumber;
     }
-});
+})();

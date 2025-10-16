@@ -10,15 +10,21 @@
         if (!button || !color) return
         button.style.backgroundColor = color
         button.style.outline = `5px solid ${color}`
+        // 保持原有的邊框樣式
+        button.style.border = `2px solid #fedfd1`
 
         const hoverColor = lightenColor(color, 0.9)
         button.addEventListener("mouseenter", () => {
             button.style.backgroundColor = hoverColor
             button.style.outline = `5px solid ${hoverColor}`
+            // hover時保持邊框樣式
+            button.style.border = `2px solid #fedfd1`
         })
         button.addEventListener("mouseleave", () => {
             button.style.backgroundColor = color
             button.style.outline = `5px solid ${color}`
+            // hover離開時保持邊框樣式
+            button.style.border = `2px solid #fedfd1`
         })
     }
 
@@ -31,12 +37,22 @@
         return `rgba(${r}, ${g}, ${b}, ${opacity})`
     }
 
-    // 只有在變量存在時才設置按鈕樣式
-    if (typeof handshake_button !== 'undefined') {
-        setupButtonStyle(document.querySelector(".main-bobs-buttons .hand"), handshake_button)
+    // 只有在變量存在時才設置按鈕樣式（僅處理靜態按鈕，動態按鈕由 setting.js 處理）
+    if (typeof window.handshake_button !== 'undefined') {
+        const handButton = document.querySelector(".main-bobs-buttons .hand");
+        // 只處理沒有 data-video-index 屬性的靜態按鈕
+        if (handButton && !handButton.dataset.videoIndex) {
+            setupButtonStyle(handButton, window.handshake_button);
+        }
     }
-    if (typeof videos_button !== 'undefined') {
-        setupButtonStyle(document.querySelector(".main-bobs-buttons .feed"), videos_button)
+    if (typeof window.videos_button !== 'undefined') {
+        const feedButtons = document.querySelectorAll(".main-bobs-buttons .feed");
+        feedButtons.forEach(feedButton => {
+            // 只處理沒有 data-video-index 屬性的靜態按鈕
+            if (!feedButton.dataset.videoIndex) {
+                setupButtonStyle(feedButton, window.videos_button);
+            }
+        });
     }
 
     // 設定標題顏色
@@ -149,9 +165,8 @@
 
 
 // Footer 腳印動畫
-document.addEventListener("DOMContentLoaded", () => {
+function initFootprintAnimation() {
     let hasStarted = false
-    console.log(buttonStates)
     const targetSection = document.querySelector(".main-letter-footprint")
 
     if (!targetSection) return
@@ -184,7 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     observer.observe(targetSection)
-})
+}
+
+// 立即執行初始化
+initFootprintAnimation()
 
 // 優化手機版腳印動畫的函數
 function optimizeMobileFootprintAnimation(footprintElement) {
@@ -237,7 +255,7 @@ function optimizeMobileFootprintAnimation(footprintElement) {
 }
 
 // 監聽沉浸式模式切換
-document.addEventListener('DOMContentLoaded', () => {
+function initImmersiveModeListeners() {
     const immersiveButton = document.querySelector('.go-down-scroll');
     const scrollArrow = document.querySelector('.go-down');
     
@@ -276,17 +294,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100);
         });
     }
-});
+}
+
+// 立即執行初始化
+initImmersiveModeListeners()
 
 // 信封逐字動畫
-document.addEventListener("DOMContentLoaded", function () {
+function initLetterAnimation() {
     const targetElement = document.querySelector(".main-letter-left-area-paper p")
     if (!targetElement) return
+
+    // 保存原始內容
+    const originalContent = targetElement.innerHTML
 
     // 先全部顯示
     const observer = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting) {
-            targetElement.innerHTML = text // 直接顯示完整內容
+            targetElement.innerHTML = originalContent // 直接顯示完整內容
             observer.disconnect() // 只觸發一次後停止觀察
         }
     }, {
@@ -319,4 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // }, { threshold: 0.3 });
 
     observer.observe(document.querySelector(".main-letter"))
-})
+}
+
+// 立即執行初始化
+initLetterAnimation()

@@ -73,7 +73,6 @@ async function getWebsiteStyle(data) {
     const mainLetterElement = document.querySelector('main .main-letter');
     if (mainLetterElement && window.footer_background) {
         mainLetterElement.style.backgroundImage = `url("https://lbblacktech.com/assets/img/letter/direction.webp"), url("https://lbblacktech.com/assets/img/letter/background.webp"), linear-gradient(to bottom, rgba(255, 241, 229, 0), ${window.footer_background})`;
-        mainLetterElement.style.backgroundColor = window.footer_background;
     }
 }
 
@@ -197,11 +196,52 @@ function updateBubbleImages(bubble_imagePaths) {
 }
 
 async function getVideoGallery(data) {
-    // 封面影片
-    window.header_videos = data.videos.header
+    // 封面影片 - 轉換為完整路徑的數組
+    if (data.videos && data.videos.header) {
+        let headerArray = data.videos.header;
+        
+        // 如果不是數組，嘗試轉換
+        if (!Array.isArray(headerArray)) {
+            if (typeof headerArray === 'object' && headerArray !== null) {
+                headerArray = Object.values(headerArray);
+            } else {
+                headerArray = [];
+            }
+        }
+        
+        // 處理每個項目，生成完整路徑
+        window.header_videos = headerArray.map(video => {
+            // 如果是字符串，直接加上基礎路徑
+            if (typeof video === 'string') {
+                return `${getImageBasePath()}/header/photo/${video}`;
+            }
+            // 如果是對象，取出 video_path
+            return `${getImageBasePath()}/header/photo/${video.video_path || video}`;
+        });
+    } else {
+        window.header_videos = [];
+    }
+    
+    // 檢查 bubble videos 是否存在
+    if (!data.videos.bubble) {
+        console.error('data.videos.bubble 不存在');
+        return;
+    }
+    
+    // 將 bubble 轉換為陣列（如果它是物件）
+    let bubbleArray = data.videos.bubble;
+    if (!Array.isArray(bubbleArray)) {
+        // 如果是物件，轉換為陣列
+        if (typeof bubbleArray === 'object' && bubbleArray !== null) {
+            bubbleArray = Object.values(bubbleArray);
+        } else {
+            console.error('data.videos.bubble 無法轉換為陣列');
+            return;
+        }
+    }
     
     // 所有可用的 bubble videos
-    const allBubbleVideos = data.videos.bubble.map(video => {
+    const allBubbleVideos = bubbleArray.map(video => {
         return {
             src: `${getImageBasePath()}/main/interaction/photo/${video.video_path}`,
             text: video.text,
@@ -211,7 +251,8 @@ async function getVideoGallery(data) {
     })
     
     // 隨機選取兩個不同的影片
-    window.bubble_videos = selectRandomVideos(allBubbleVideos, 2);    
+    window.bubble_videos = selectRandomVideos(allBubbleVideos, 2);
+    
     // 根據選取的影片創建按鈕
     createDynamicButtons();
 }
@@ -235,13 +276,11 @@ function selectRandomVideos(videos, count) {
 // 根據選取的影片創建按鈕
 function createDynamicButtons() {
     if (!window.bubble_videos || window.bubble_videos.length === 0) {
-        console.log('沒有 bubble videos 資料');
         return;
     }
     
     const buttonsContainer = document.querySelector('.main-bobs-buttons');
     if (!buttonsContainer) {
-        console.log('找不到按鈕容器');
         return;
     }
     
@@ -252,7 +291,8 @@ function createDynamicButtons() {
     // 根據選取的影片創建按鈕
     window.bubble_videos.forEach((video, index) => {
         const button = document.createElement('button');
-        button.className = 'feed';
+        // 第一個按鈕使用 hand 類名，其他使用 feed 類名
+        button.className = index === 0 ? 'hand' : 'feed';
         button.textContent = video.text;
         button.dataset.videoIndex = index; // 儲存影片索引
         button.dataset.videoSrc = video.src;
@@ -263,9 +303,13 @@ function createDynamicButtons() {
         if (index === 0 && window.handshake_button) {
             button.style.backgroundColor = window.handshake_button;
             button.style.outlineColor = window.handshake_button;
+            button.style.outline = `5px solid ${window.handshake_button}`;
+            button.style.border = `2px solid #fedfd1`;
         } else if (index === 1 && window.videos_button) {
             button.style.backgroundColor = window.videos_button;
             button.style.outlineColor = window.videos_button;
+            button.style.outline = `5px solid ${window.videos_button}`;
+            button.style.border = `2px solid #fedfd1`;
         }
         
         // 插入到 mute 按鈕之前
@@ -275,7 +319,7 @@ function createDynamicButtons() {
         } else {
             buttonsContainer.appendChild(button);
         }
-    });    
+    });
 }
 
 async function getPet(data) {
@@ -308,6 +352,7 @@ async function initializePetWebsite() {
     try {
         // loading 已在 HTML 中初始化，直接開始載入資料
         const data = await fetchPetData();
+        
         await getWebsiteSetting(data);
         await getWebsiteStyle(data);
         await getTimeline(data);
@@ -316,7 +361,6 @@ async function initializePetWebsite() {
         await getPhotoGallery(data);
         await getPet(data);
         
-
         await import(window.PET_ASSETS.jsFiles.day);
         await import(window.PET_ASSETS.jsFiles.newScroll);
         await import(window.PET_ASSETS.jsFiles.lifeSlides);
@@ -330,15 +374,17 @@ async function initializePetWebsite() {
         await import(window.PET_ASSETS.jsFiles.svgColor);
         await import(window.PET_ASSETS.jsFiles.footerSlogan);
         await import(window.PET_ASSETS.jsFiles.utm);
-
-
-
+        await import(window.PET_ASSETS.jsFiles.music);
+        await import(window.PET_ASSETS.jsFiles.function);
+        await import(window.PET_ASSETS.jsFiles.copyright);
         
         // 觸發生命軌跡事件
         setTimeout(() => {
             window.dispatchEvent(new CustomEvent('lifeSlidesReady'));
         }, 2000);
     } catch (err) {
+        console.error('initializePetWebsite 發生錯誤:', err);
+        console.error('錯誤堆疊:', err.stack);
     }
 }
 
