@@ -60,14 +60,21 @@ async function getWebsiteStyle(data) {
     window.header_footprint = data.website_style.header_footprint_color;
     window.dayText_dayAge = data.website_style.day_text_color;
     window.title_color = data.website_style.title_color;
-    window.handshake_button = data.website_style.handshake_button;
-    window.videos_button = data.website_style.videos_button;
+    window.handshake_button = data.website_style.handshake_button_color;
+    window.videos_button = data.website_style.videos_button_color;
     window.bubble_ball = data.website_style.bubble_ball_color;
     window.bubble_background = data.website_style.bubble_background;
     window.footprint_all = data.website_style.footprint_color;
-    window.footer_background = data.website_style.footer_background;
+    window.footer_background = data.website_style.footer_background_color;
     window.function_color = data.website_style.function_color;
-    window.function_background = data.website_style.function_background;
+    window.function_background = data.website_style.function_background_color;
+    
+    // 設定 main-letter 的背景色
+    const mainLetterElement = document.querySelector('main .main-letter');
+    if (mainLetterElement && window.footer_background) {
+        mainLetterElement.style.backgroundImage = `url("https://lbblacktech.com/assets/img/letter/direction.webp"), url("https://lbblacktech.com/assets/img/letter/background.webp"), linear-gradient(to bottom, rgba(255, 241, 229, 0), ${window.footer_background})`;
+        mainLetterElement.style.backgroundColor = window.footer_background;
+    }
 }
 
 // 生命軌跡
@@ -251,6 +258,15 @@ function createDynamicButtons() {
         button.dataset.videoSrc = video.src;
         button.dataset.videoRatio = video.ratio;
         button.dataset.videoSound = video.sound;
+        
+        // 為第一個和第二個按鈕設定顏色
+        if (index === 0 && window.handshake_button) {
+            button.style.backgroundColor = window.handshake_button;
+            button.style.outlineColor = window.handshake_button;
+        } else if (index === 1 && window.videos_button) {
+            button.style.backgroundColor = window.videos_button;
+            button.style.outlineColor = window.videos_button;
+        }
         
         // 插入到 mute 按鈕之前
         const muteBtn = buttonsContainer.querySelector('.mute-feed');

@@ -59,7 +59,7 @@ class WebsiteStyle extends Resource
                 ->help('loading背景顏色'),
             Color::make('Cover Name Color', 'cover_name_color')->sketch()
                 ->sortable()
-                ->help('封面名稱的圈圈 / 一起度過的日子(數字) / 生命軌跡時間軸顏色'),
+                ->help('一起度過的日子(數字) / 生命軌跡時間軸顏色'),
             Color::make('Header Love Color', 'header_love_color')->sketch()
                 ->sortable()
                 ->help('封面愛心顏色'),
@@ -72,12 +72,12 @@ class WebsiteStyle extends Resource
             Color::make('Title Color', 'title_color')->sketch()
                 ->sortable()
                 ->help('logo標題 / 標題 / footer文字顏色'),
-            Color::make('Handshake Button Color', 'handshake_button_color')->sketch()
+            Color::make('Left Interaction Button Color', 'handshake_button_color')->sketch()
                 ->sortable()
-                ->help('握手互動按鈕顏色'),
-            Color::make('Videos Button Color', 'videos_button_color')->sketch()
+                ->help('左邊按鈕顏色'),
+            Color::make('Right Interaction Button Color', 'videos_button_color')->sketch()
                 ->sortable()
-                ->help('其他互動按鈕顏色'),
+                ->help('右邊按鈕顏色'),
             Color::make('Bubble Ball Color', 'bubble_ball_color')->sketch()
                 ->sortable()
                 ->help('泡泡顏色'),
