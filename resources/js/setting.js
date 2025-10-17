@@ -291,8 +291,8 @@ function createDynamicButtons() {
     // 根據選取的影片創建按鈕
     window.bubble_videos.forEach((video, index) => {
         const button = document.createElement('button');
-        // 第一個按鈕使用 hand 類名，其他使用 feed 類名
-        button.className = index === 0 ? 'hand' : 'feed';
+        // 所有按鈕都使用 feed 類名
+        button.className = 'feed';
         button.textContent = video.text;
         button.dataset.videoIndex = index; // 儲存影片索引
         button.dataset.videoSrc = video.src;
