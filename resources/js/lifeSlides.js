@@ -18,17 +18,13 @@ document.documentElement.style.setProperty('--animation-move-500', `${-300 * cor
 // id
 const container = document.getElementById("main-film-container");
 
-// 隨機排列媒體並確保不重複
-function getRandomMedia(count) {
-  const mediaList = [...window.corridor_images, ...window.corridor_videos].sort(() => Math.random() - 0.5);
-  return mediaList.slice(0, count);
-}
-
 // 結構
 let n = 1;
 let slidesArray = [];
-function createSlides(mediaList, group) {
-  mediaList.forEach((mediaPath) => {
+function createSlides(group) {
+  // 使用 corridor_images 作為輪播圖（封面）
+  // corridor_videos 作為點擊後顯示的媒體內容
+  window.corridor_images.forEach((imagePath, index) => {
     const slide = document.createElement("div");
     slide.className = `main-film-out-in-slide order-${n}`;
     n++;
@@ -45,21 +41,24 @@ function createSlides(mediaList, group) {
     cardLink.classList.add(group);
     cardLink.setAttribute("data-fancybox", "film");
     
-    let previewImg = "";
-    if (mediaPath.endsWith(".mp4")) {
-      // 视频文件路径
+    // 獲取對應的媒體內容（可能是圖片或影片）
+    const mediaPath = window.corridor_videos[index];
+    
+    // 封面圖使用 corridor_images
+    const previewImg = `${window.PET_ASSETS.imagePath}/main/film/photo/${imagePath}`;
+    
+    // 根據媒體類型設置 data-src
+    if (mediaPath && mediaPath.endsWith(".mp4")) {
+      // 影片：設置影片路徑
       const fullVideoPath = `${window.PET_ASSETS.imagePath}/main/film/photo/video/mp4/${mediaPath}`;
       cardLink.setAttribute("data-src", fullVideoPath);
-      // 视频预览图路径
-      const mediaName = mediaPath.split('/').pop(); // 獲取文件名
-      previewImg = `${window.PET_ASSETS.imagePath}/main/film/photo/video/${mediaName.replace(".mp4", ".webp")}`;
-    } else {
-      // 图片文件路径
+    } else if (mediaPath) {
+      // 圖片：設置圖片路徑
       const fullImagePath = `${window.PET_ASSETS.imagePath}/main/film/photo/${mediaPath}`;
       cardLink.setAttribute("data-src", fullImagePath);
-      // 图片预览图路径（就是原图）
-      const mediaName = mediaPath.split('/').pop(); // 獲取文件名
-      previewImg = `${window.PET_ASSETS.imagePath}/main/film/photo/${mediaName}`;
+    } else {
+      // 如果沒有媒體內容，使用封面圖作為全尺寸顯示
+      cardLink.setAttribute("data-src", previewImg);
     }
     
     const randomImg = document.createElement("img");
@@ -88,8 +87,13 @@ function createSlides(mediaList, group) {
 
 // 確保變數已準備就緒
 if (window.corridor_images && window.corridor_videos && window.pictureNum) {
-  const randomMedia = getRandomMedia(window.pictureNum);
-  createSlides(randomMedia, "group-1");
+  console.log('記憶迴廊數據:', {
+    封面圖數量: window.corridor_images.length,
+    媒體數量: window.corridor_videos.length,
+    封面圖: window.corridor_images,
+    媒體: window.corridor_videos
+  });
+  createSlides("group-1");
 } else {
   console.error('記憶迴廊變數未準備就緒:', {
     corridor_images: window.corridor_images,

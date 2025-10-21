@@ -90,7 +90,7 @@ class PetDataController extends Controller
         $lifeSlides = $lifeSlides->map(function($slide) {
             return [
                 'life_slide_image' => $slide->life_slide_image,
-                'life_slide_video' => $slide->life_slide_video,
+                'life_slide_media' => $slide->life_slide_media,
             ];
         })->toArray();
 

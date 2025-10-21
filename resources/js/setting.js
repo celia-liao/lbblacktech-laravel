@@ -105,29 +105,29 @@ async function getTimeline(data) {
 async function getCorridor(data) {
 
     const corridor_images = []
-    const corridor_videos = [];
+    const corridor_medias = [];
     const corridor_image = [];
-    const corridor_video = [];
+    const corridor_media = [];
 
     for (const event of data.life_slides) {
         corridor_image.push(event.life_slide_image);
-        corridor_video.push(event.life_slide_video);
+        corridor_media.push(event.life_slide_media);
     }
 
-    const minLength = Math.min(corridor_image.length, corridor_video.length)
+    const minLength = Math.min(corridor_image.length, corridor_media.length)
 
     for (let i = 0; i < minLength; i++) {
         const imageName = corridor_image[i] || `film_${String(i + 1).padStart(2, '0')}.webp`
-        const videoName = corridor_video[i] || `film_${String(i + 1).padStart(2, '0')}.mp4`
+        const videoName = corridor_media[i] 
 
         corridor_images.push(imageName);
-        corridor_videos.push(videoName);
+        corridor_medias.push(videoName);
     }
 
 
 
     window.corridor_images = corridor_images;
-    window.corridor_videos = corridor_videos;
+    window.corridor_videos = corridor_medias;
 }
 
 // 照片資料 (用相片集)
