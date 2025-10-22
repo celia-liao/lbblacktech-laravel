@@ -54,7 +54,7 @@ function createSlides(group) {
       cardLink.setAttribute("data-src", fullVideoPath);
     } else if (mediaPath) {
       // 圖片：設置圖片路徑
-      const fullImagePath = `${window.PET_ASSETS.imagePath}/main/film/photo/${mediaPath}`;
+      const fullImagePath = `${window.PET_ASSETS.imagePath}/main/film/photo/picture/${mediaPath}`;
       cardLink.setAttribute("data-src", fullImagePath);
     } else {
       // 如果沒有媒體內容，使用封面圖作為全尺寸顯示

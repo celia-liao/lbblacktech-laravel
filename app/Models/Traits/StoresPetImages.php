@@ -125,7 +125,7 @@ trait StoresPetImages
 
         // 根據類別決定要放哪個子資料夾
         $subPath = match ($type) {
-            'image' => "image/main/film/photo",
+            'image' => "image/main/film/photo/picture",
             'video' => "image/main/film/photo/video/mp4",
             default => "uploads",
         };
