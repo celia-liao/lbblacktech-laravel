@@ -180,6 +180,7 @@ class PetDataController extends Controller
                 'breed' => $pet->breed ?: '寵物',                   // 寵物品種（從資料庫讀取）
                 'persona_key' => $pet->personality ?: 'friendly',  // 性格類型（從資料庫讀取）
                 'cover_slogan' => $pet->slogan ?: '',              // 主人的愛意標語
+                'line_user_id' => $pet->line_user_id,              // LINE用戶ID
                 'lifeData' => $life,                                // 生命軌跡事件列表
                 'letter' => $letter ? $letter->content : ''        // 主人的信件內容
             ];
