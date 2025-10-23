@@ -180,7 +180,6 @@ class PetDataController extends Controller
                 'breed' => $pet->breed ?: '寵物',                   // 寵物品種（從資料庫讀取）
                 'persona_key' => $pet->personality ?: 'friendly',  // 性格類型（從資料庫讀取）
                 'cover_slogan' => $pet->slogan ?: '',              // 主人的愛意標語
-                'line_user_id' => $pet->line_user_id,              // LINE用戶ID
                 'lifeData' => $life,                                // 生命軌跡事件列表
                 'letter' => $letter ? $letter->content : ''        // 主人的信件內容
             ];
@@ -194,6 +193,47 @@ class PetDataController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => '查詢寵物資料時發生錯誤：' . $e->getMessage(),
+            ], 500, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+    }
+
+    /**
+     * 根據 line_user_id 獲取寵物ID
+     * 
+     * @param string $lineUserId
+     * @return JsonResponse
+     */
+    public function getPetIdByLineUserId(string $lineUserId): JsonResponse
+    {
+        try {
+            // 查詢寵物ID
+            $pet = Pet::select('pet_id', 'pet_name', 'line_user_id')
+                ->where('line_user_id', $lineUserId)
+                ->first();
+
+            if (!$pet) {
+                return response()->json([
+                    'success' => false,
+                    'message' => '找不到對應的寵物資料',
+                ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            }
+
+            // 返回寵物ID和基本資料
+            $result = [
+                'pet_id' => $pet->pet_id,
+                'pet_name' => $pet->pet_name,
+                'line_user_id' => $pet->line_user_id,
+            ];
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+            ], 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => '查詢寵物ID時發生錯誤：' . $e->getMessage(),
             ], 500, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
     }

@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('pet-data/{slug}', [PetDataController::class, 'getPetData']);
 Route::get('pet-data-by-id/{petId}', [PetDataController::class, 'getPetDataById']);
+Route::get('pet-id-by-line-user/{lineUserId}', [PetDataController::class, 'getPetIdByLineUserId']);
