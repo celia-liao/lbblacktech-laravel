@@ -139,4 +139,61 @@ class PetDataController extends Controller
             'data' => $data,
         ], 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
+
+    /**
+     * 根據 pet_id 獲取寵物資料（供其他專案使用）
+     * 
+     * @param int $petId
+     * @return JsonResponse
+     */
+    public function getPetDataById(int $petId): JsonResponse
+    {
+        try {
+            // 1. 查詢寵物基本資料
+            $pet = Pet::select('pet_id', 'pet_name', 'breed', 'personality', 'slogan', 'line_user_id')
+                ->where('pet_id', $petId)
+                ->first();
+
+            if (!$pet) {
+                return response()->json([
+                    'success' => false,
+                    'message' => '找不到指定的寵物資料',
+                ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            }
+
+            // 2. 查詢生命軌跡（只顯示 is_visible=1 的事件，按 display_order 排序）
+            $life = TimelineEvent::select('age', 'event_title as title', 'event_description as text')
+                ->where('pet_id', $petId)
+                ->where('is_visible', 1)
+                ->orderBy('display_order')
+                ->get()
+                ->toArray();
+
+            // 3. 查詢主人的信件
+            $letter = Letter::select('letter_content as content')
+                ->where('pet_id', $petId)
+                ->first();
+
+            // 組合並返回完整的寵物資料
+            $result = [
+                'name' => $pet->pet_name,                           // 寵物名字
+                'breed' => $pet->breed ?: '寵物',                   // 寵物品種（從資料庫讀取）
+                'persona_key' => $pet->personality ?: 'friendly',  // 性格類型（從資料庫讀取）
+                'cover_slogan' => $pet->slogan ?: '',              // 主人的愛意標語
+                'lifeData' => $life,                                // 生命軌跡事件列表
+                'letter' => $letter ? $letter->content : ''        // 主人的信件內容
+            ];
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+            ], 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => '查詢寵物資料時發生錯誤：' . $e->getMessage(),
+            ], 500, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+    }
 }
