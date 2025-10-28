@@ -155,7 +155,7 @@ let currentAction = null;
 let timeoutId;
 let isMuted = false;
 const preloadHandImg = new Image();
-preloadHandImg.src = `${window.PET_ASSETS.imagePath}/main/interaction/photo/hand-n.webp`;
+// preloadHandImg.src = `${window.PET_ASSETS.imagePath}/main/interaction/photo/hand-n.webp`;
 
 muteBtn.addEventListener("click", () => {
   const videoElement = document.querySelector(".main-video-area video");

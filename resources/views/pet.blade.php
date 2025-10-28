@@ -393,7 +393,7 @@
       <div class="main-bobs-area gallery-bobs">
         <div class="main-video">
           <div class="main-video-area">
-            <video src="{{ asset('storage/pets/' . $slug . '/image/main/interaction/photo/coming_eat.mp4') }}" muted playsinline></video>
+            <video muted playsinline></video>
           </div>
         </div>
         <div class="main-bobs-area-box main-bobs-area-box-1">
@@ -438,8 +438,8 @@
         <button class="mute-feed" id="muteBtn" style="visibility: hidden; opacity: 0;">
           <img src="{{ asset('storage/pets/image/volume-xmark-solid.svg') }}" alt="聲音開關" /> 
         </button>
-        <audio muted id="handAudio" src="{{ asset('storage/pets/' . $slug . '/audio/hand.mp3') }}"></audio>
-        <audio muted id="feedAudio" src="{{ asset('storage/pets/' . $slug . '/audio/feed.mp3') }}"></audio>
+        <audio muted id="handAudio"></audio>
+        <audio muted id="feedAudio"></audio>
       </div>
       <div id="thumbnail_canvas" class="single-thumbnail-card">
         <div class="single-thumbnail">
