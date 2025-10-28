@@ -55,6 +55,7 @@ async function getWebsiteSetting(data) {
 // 網站樣式
 async function getWebsiteStyle(data) {
     window.loading_color = data.website_style.loading_color;
+    window.cover_circle_color = data.website_style.cover_circle_color;
     window.coverName_dayNumbers_dayTimeline = data.website_style.cover_name_color;
     window.header_love = data.website_style.header_love_color;
     window.header_footprint = data.website_style.header_footprint_color;

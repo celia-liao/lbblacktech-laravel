@@ -25,10 +25,10 @@
       </h1>
     </div>
     <div class="main-img-name" data-aos="opacity-class">
-      <img src="{{ asset('storage/pets/image/header/Union.svg') }}" alt="image" />
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 200" fill="none">
+      <!-- <img src="{{ asset('storage/pets/image/header/Union.svg') }}" alt="image" /> -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 200" fill="none">
           <path class="coverName_dayNumbers_dayTimeline" fill-rule="evenodd" clip-rule="evenodd" d="M100 0H201V104H199.921C197.822 157.374 153.889 200 100 200C44.7715 200 0 155.228 0 100C0 45.775 43.1593 1.63048 97 0.0441397V0H100Z" style="fill: rgb(255, 191, 117);"></path>
-        </svg> -->
+        </svg>
       <div class="main-img-name-area">
         <span class="main-img-name-area-pet">
           <!-- 毛孩名字 -->

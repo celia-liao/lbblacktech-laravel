@@ -57,6 +57,9 @@ class WebsiteStyle extends Resource
             Color::make('Loading Color', 'loading_color')->sketch()
                 ->sortable()
                 ->help('loading背景顏色'),
+            Color::make('Cover Circle Color', 'cover_circle_color')->sketch()
+                ->sortable()
+                ->help('封面名稱的圈圈顏色'),
             Color::make('Cover Name Color', 'cover_name_color')->sketch()
                 ->sortable()
                 ->help('一起度過的日子(數字) / 生命軌跡時間軸顏色'),

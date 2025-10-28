@@ -13,6 +13,7 @@ class WebsiteStyle extends Model
         'pet_id',
         'loading_color',
         'cover_name_color',
+        'cover_circle_color',
         'header_love_color',
         'header_footprint_color',
         'day_text_color',

@@ -70,10 +70,14 @@
         document.querySelectorAll(".main-life-title-container h2").forEach(el => el.style.color = title_color)
     }
 
+    // 設定封面名稱的圈圈顏色
+    if (typeof cover_circle_color !== 'undefined') {
+        document.querySelectorAll(".coverName_dayNumbers_dayTimeline").forEach(el => el.setAttribute("fill", cover_circle_color))
+    }
+
     // 設定 timeline 相關顏色
     if (typeof coverName_dayNumbers_dayTimeline !== 'undefined') {
         [
-            [".coverName_dayNumbers_dayTimeline", "fill", coverName_dayNumbers_dayTimeline],
             ["#day", "color", coverName_dayNumbers_dayTimeline],
             [".day", "color", coverName_dayNumbers_dayTimeline],
             [".main-life-sticky-age-line .line", "backgroundColor", coverName_dayNumbers_dayTimeline],
