@@ -58,8 +58,8 @@ class LifeSlide extends Resource
                 ->display('pet_name'), 
             Image::make('封面照片', 'life_slide_image')
                 ->disk('public')
-                ->thumbnail(fn($value, $disk, $model) => $model->getLifeSlideUrl($value, 'image'))
-                ->preview(fn($value, $disk, $model) => $model->getLifeSlideUrl($value, 'image'))
+                ->thumbnail(fn($value, $disk, $model) => $model->getLifeSlideUrl($value, 'cover'))
+                ->preview(fn($value, $disk, $model) => $model->getLifeSlideUrl($value, 'cover'))
                 ->help('上傳記憶迴廊封面照片（必填）'),
             
             File::make('媒體內容', 'life_slide_media')
