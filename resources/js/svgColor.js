@@ -37,19 +37,17 @@
         return `rgba(${r}, ${g}, ${b}, ${opacity})`
     }
 
-    // 設置按鈕樣式（處理所有按鈕，包括動態創建的）
-    if (typeof window.handshake_button !== 'undefined') {
-        const handButtons = document.querySelectorAll(".main-bobs-buttons .hand");
-        handButtons.forEach(handButton => {
-            setupButtonStyle(handButton, window.handshake_button);
-        });
-    }
-    if (typeof window.videos_button !== 'undefined') {
-        const feedButtons = document.querySelectorAll(".main-bobs-buttons .feed");
-        feedButtons.forEach(feedButton => {
-            setupButtonStyle(feedButton, window.videos_button);
-        });
-    }
+    // 設置按鈕樣式（根據位置設定顏色：第一個按鈕用握手顏色，第二個按鈕用影片顏色）
+    const allButtons = document.querySelectorAll(".main-bobs-buttons button:not(.mute-feed)");
+    allButtons.forEach((button, index) => {
+        if (index === 0 && typeof window.handshake_button !== 'undefined') {
+            // 第一個按鈕使用握手按鈕顏色
+            setupButtonStyle(button, window.handshake_button);
+        } else if (index === 1 && typeof window.videos_button !== 'undefined') {
+            // 第二個按鈕使用影片按鈕顏色
+            setupButtonStyle(button, window.videos_button);
+        }
+    });
 
     // 設定標題顏色
     if (typeof title_color !== 'undefined') {
@@ -349,18 +347,16 @@ function initLetterAnimation() {
 
 // 重新應用按鈕顏色的函數（供外部調用）
 function reapplyButtonColors() {
-    if (typeof window.handshake_button !== 'undefined') {
-        const handButtons = document.querySelectorAll(".main-bobs-buttons .hand");
-        handButtons.forEach(handButton => {
-            setupButtonStyle(handButton, window.handshake_button);
-        });
-    }
-    if (typeof window.videos_button !== 'undefined') {
-        const feedButtons = document.querySelectorAll(".main-bobs-buttons .feed");
-        feedButtons.forEach(feedButton => {
-            setupButtonStyle(feedButton, window.videos_button);
-        });
-    }
+    const allButtons = document.querySelectorAll(".main-bobs-buttons button:not(.mute-feed)");
+    allButtons.forEach((button, index) => {
+        if (index === 0 && typeof window.handshake_button !== 'undefined') {
+            // 第一個按鈕使用握手按鈕顏色
+            setupButtonStyle(button, window.handshake_button);
+        } else if (index === 1 && typeof window.videos_button !== 'undefined') {
+            // 第二個按鈕使用影片按鈕顏色
+            setupButtonStyle(button, window.videos_button);
+        }
+    });
 }
 
 // 立即執行初始化
