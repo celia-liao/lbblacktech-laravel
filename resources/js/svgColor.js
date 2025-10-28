@@ -72,7 +72,9 @@
 
     // 設定封面名稱的圈圈顏色
     if (typeof cover_circle_color !== 'undefined') {
-        document.querySelectorAll(".coverName_dayNumbers_dayTimeline").forEach(el => el.setAttribute("fill", cover_circle_color))
+        document.querySelectorAll(".coverName_dayNumbers_dayTimeline").forEach(el => {
+            el.style.fill = cover_circle_color;
+        })
     }
 
     // 設定 timeline 相關顏色
