@@ -37,21 +37,17 @@
         return `rgba(${r}, ${g}, ${b}, ${opacity})`
     }
 
-    // 只有在變量存在時才設置按鈕樣式（僅處理靜態按鈕，動態按鈕由 setting.js 處理）
+    // 設置按鈕樣式（處理所有按鈕，包括動態創建的）
     if (typeof window.handshake_button !== 'undefined') {
-        const handButton = document.querySelector(".main-bobs-buttons .hand");
-        // 只處理沒有 data-video-index 屬性的靜態按鈕
-        if (handButton && !handButton.dataset.videoIndex) {
+        const handButtons = document.querySelectorAll(".main-bobs-buttons .hand");
+        handButtons.forEach(handButton => {
             setupButtonStyle(handButton, window.handshake_button);
-        }
+        });
     }
     if (typeof window.videos_button !== 'undefined') {
         const feedButtons = document.querySelectorAll(".main-bobs-buttons .feed");
         feedButtons.forEach(feedButton => {
-            // 只處理沒有 data-video-index 屬性的靜態按鈕
-            if (!feedButton.dataset.videoIndex) {
-                setupButtonStyle(feedButton, window.videos_button);
-            }
+            setupButtonStyle(feedButton, window.videos_button);
         });
     }
 
@@ -349,6 +345,22 @@ function initLetterAnimation() {
     // }, { threshold: 0.3 });
 
     observer.observe(document.querySelector(".main-letter"))
+}
+
+// 重新應用按鈕顏色的函數（供外部調用）
+function reapplyButtonColors() {
+    if (typeof window.handshake_button !== 'undefined') {
+        const handButtons = document.querySelectorAll(".main-bobs-buttons .hand");
+        handButtons.forEach(handButton => {
+            setupButtonStyle(handButton, window.handshake_button);
+        });
+    }
+    if (typeof window.videos_button !== 'undefined') {
+        const feedButtons = document.querySelectorAll(".main-bobs-buttons .feed");
+        feedButtons.forEach(feedButton => {
+            setupButtonStyle(feedButton, window.videos_button);
+        });
+    }
 }
 
 // 立即執行初始化

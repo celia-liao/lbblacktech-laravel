@@ -2,6 +2,7 @@
 // 毛孩紀念網站 - 共用設定檔
 // ===========================
 
+
 // 獲取當前頁面的 slug
 function getCurrentSlug() {
     // 從 URL 路徑中提取 slug
@@ -275,6 +276,11 @@ async function getPetButtons(data) {
         imageButton.dataset.mediaPath = imageButtonData.media_path;
         buttonsContainer.appendChild(imageButton);
 
+        // 應用握手按鈕顏色
+        if (typeof reapplyButtonColors === 'function') {
+            reapplyButtonColors();
+        }
+
         // 從所有影片按鈕中隨機挑選一個
         const videoButtons = petButtons.filter(button => button.button_type === 'video');
         if (videoButtons.length > 0) {
@@ -290,6 +296,11 @@ async function getPetButtons(data) {
             videoButton.dataset.videoRatio = videoButtonData.ratio;
             videoButton.dataset.videoSound = videoButtonData.sound;
             buttonsContainer.appendChild(videoButton);
+
+            // 應用影片按鈕顏色
+            if (typeof reapplyButtonColors === 'function') {
+                reapplyButtonColors();
+            }
         }
     }
     // 如果陣列裡面全是影片就隨便挑兩個影片做成影片按鈕
@@ -305,6 +316,11 @@ async function getPetButtons(data) {
             videoButton.dataset.videoRatio = buttonData.ratio;
             videoButton.dataset.videoSound = buttonData.sound;
             buttonsContainer.appendChild(videoButton);
+
+            // 應用影片按鈕顏色
+            if (typeof reapplyButtonColors === 'function') {
+                reapplyButtonColors();
+            }
         });
     }
 
