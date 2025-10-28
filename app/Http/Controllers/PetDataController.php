@@ -110,6 +110,7 @@ class PetDataController extends Controller
             'website_style' => $websiteStyle ? [
                 'loading_color' => $websiteStyle->loading_color,
                 'cover_name_color' => $websiteStyle->cover_name_color,
+                'cover_circle_color' => $websiteStyle->cover_circle_color,
                 'header_love_color' => $websiteStyle->header_love_color,
                 'header_footprint_color' => $websiteStyle->header_footprint_color,
                 'day_text_color' => $websiteStyle->day_text_color,
