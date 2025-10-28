@@ -77,18 +77,6 @@ class PetVideo extends Resource
             Text::make('video_path', 'video_path')
                 ->onlyOnIndex(),
 
-            Text::make('Text', 'text')
-                ->help('輸入按鈕文字')
-                ->sortable(),
-            Select::make('Ratio', 'ratio')
-                ->options([
-                    'tall' => 'Tall',
-                    'long' => 'Long',
-                ])
-                ->sortable()
-                ->help('選擇影片為長版(tall)或寬版(long)'),
-            Boolean::make('Sound', 'sound')->sortable()
-                ->help('勾選影片是否有聲音'),
             Text::make('Category', 'category')
                 ->sortable()
                 ->help('輸入影片類別：封面(header)、泡泡(bubble)'),

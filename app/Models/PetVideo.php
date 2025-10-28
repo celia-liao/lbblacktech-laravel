@@ -15,9 +15,6 @@ class PetVideo extends Model
     protected $fillable = [
         'pet_id',
         'video_path',
-        'text',
-        'ratio',
-        'sound',
         'category',
         'display_order',
         'is_active',
