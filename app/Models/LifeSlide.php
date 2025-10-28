@@ -30,7 +30,7 @@ class LifeSlide extends Model
             $request = request(); // ✅ 避免 CLI 出錯
 
             if ($request && $request->hasFile('life_slide_image')) {
-                $slide->life_slide_image = $slide->storeLifeSlide($request->file('life_slide_image'), 'image');
+                $slide->life_slide_image = $slide->storeLifeSlide($request->file('life_slide_image'), 'cover');
             }
 
             if ($request && $request->hasFile('life_slide_media')) {
