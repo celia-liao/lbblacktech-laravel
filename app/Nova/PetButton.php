@@ -29,6 +29,15 @@ class PetButton extends Resource
      */
     public static $title = 'button_text';
 
+    public static $group = 'Pet Management';
+
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
     /**
      * The columns that should be searched.
      *
