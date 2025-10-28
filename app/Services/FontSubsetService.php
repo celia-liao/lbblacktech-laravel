@@ -159,6 +159,7 @@ class FontSubsetService
         
         // 收集所有 TimelineEvent 的文字
         $timelineEvents = $pet->timelineEvents;
+        $petButtons = $pet->petButtons;
         $allTexts = [];
         
         foreach ($timelineEvents as $event) {
@@ -167,6 +168,12 @@ class FontSubsetService
             }
             if (!empty($event->event_description)) {
                 $allTexts[] = $event->event_description;
+            }
+        }
+
+        foreach ($petButtons as $button) {
+            if (!empty($button->button_text)) {
+                $allTexts[] = $button->button_text;
             }
         }
         
@@ -222,8 +229,17 @@ class FontSubsetService
             File::makeDirectory($outputDir, 0755, true);
         }
         
+        // 收集所有相關文字
+        $allTexts = self::collectAllTextsForSlug($slug);
+        if (!empty($text)) {
+            $allTexts[] = $text;
+        }
+        
+        // 合併所有文字
+        $combinedText = implode(' ', array_unique($allTexts));
+        
         // 將文字寫入 keep_chars 檔案
-        file_put_contents($keepCharsFile, $text);
+        file_put_contents($keepCharsFile, $combinedText);
         
         // 檢查輸入字體是否存在
         if (!File::exists($inputFont)) {
@@ -288,6 +304,62 @@ class FontSubsetService
         ]);
         
         return $assetUrl;
+    }
+
+    /**
+     * 收集指定 slug 的所有相關文字
+     * 
+     * @param string $slug 寵物網站 slug
+     * @return array 所有文字陣列
+     */
+    private static function collectAllTextsForSlug($slug)
+    {
+        $allTexts = [];
+        
+        // 獲取 Pet
+        $pet = \App\Models\Pet::where('website_slug', $slug)->first();
+        
+        if (!$pet) {
+            return $allTexts;
+        }
+        
+        // 添加 slogan
+        if (!empty($pet->slogan)) {
+            $allTexts[] = $pet->slogan;
+        }
+        
+        // 添加 Letter content
+        if ($pet->letter && !empty($pet->letter->letter_content)) {
+            $allTexts[] = $pet->letter->letter_content;
+        }
+        
+        // 添加所有 PetButton 的文字
+        if ($pet->petButtons) {
+            foreach ($pet->petButtons as $button) {
+                if (!empty($button->button_text)) {
+                    $allTexts[] = $button->button_text;
+                }
+            }
+        }
+        
+        // 添加 TimelineEvent 的文字
+        if ($pet->timelineEvents) {
+            foreach ($pet->timelineEvents as $event) {
+                if (!empty($event->event_title)) {
+                    $allTexts[] = $event->event_title;
+                }
+                if (!empty($event->event_description)) {
+                    $allTexts[] = $event->event_description;
+                }
+            }
+        }
+        
+        // 移除 HTML 標籤並過濾空字串
+        $cleanTexts = array_filter(array_map('strip_tags', $allTexts), function($text) {
+            return !empty(trim($text));
+        });
+        
+        return $cleanTexts;
     }
 }
 
