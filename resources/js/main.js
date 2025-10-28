@@ -187,7 +187,7 @@ function stopCurrentAction() {
 
   if (bobsImgHand) {
     bobsImgHand.style.animation = ``;
-    bobsImgHand.src = `${window.PET_ASSETS.imagePath}/main/interaction/photo/hand-p.webp`;
+    bobsImgHand.src = `${window.PET_ASSETS.imagePath}/main/button/hand-p.webp`;
   }
 
   bobsImg.style.opacity = ``;
@@ -286,7 +286,7 @@ if (handBtn) {
       bobsImgHand.src = preloadHandImg.src;
       bobsImgHand.style.animation = `animation-hand-up 2.8s linear 0s`;
     } else {
-      bobsImgHand.src = `${window.PET_ASSETS.imagePath}/main/interaction/photo/hand-p.webp`;
+      bobsImgHand.src = `${window.PET_ASSETS.imagePath}/main/button/hand-p.webp`;
       bobsImgHand.style.animation = `animation-hand-down 2.8s linear 0s`;
     }
   }
