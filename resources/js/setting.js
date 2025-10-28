@@ -327,7 +327,7 @@ async function getPetButtons(data) {
             muteBtn.style.opacity = 1;
             const muteBtnImg = muteBtn.querySelector('img');
             if (muteBtnImg) {
-                muteBtnImg.src = `${window.PET_ASSETS.imagePath}/volume-xmark-solid.svg`;
+                muteBtnImg.src = `${window.PET_ASSETS.iconPath}/volume-xmark-solid.svg`;
             }
         } else {
             // 沒有影片有聲音，隱藏 mute 按鈕

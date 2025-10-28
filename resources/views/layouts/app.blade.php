@@ -97,6 +97,7 @@
         // 傳遞路徑變數給前端
         window.PET_ASSETS = {
             slug: '{{ $slug }}',
+            iconPath: '{{ asset("storage/pets/image") }}',
             imagePath: '{{ asset("storage/pets/" . $slug . "/image") }}',
             audioPath: '{{ asset("storage/pets/" . $slug . "/audio") }}',
             fontPath: '{{ asset("storage/pets/" . $slug . "/font") }}',
