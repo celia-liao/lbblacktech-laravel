@@ -430,7 +430,7 @@
         </div>
         <div class="main-bobs-area-img">
           <img src="{{ asset('storage/pets/image/air.png') }}" alt="握手" class="bg-img" />
-          <img src="{{ asset('storage/pets/' . $slug . '/image/main/interaction/photo/hand-p.webp') }}" alt="握手" class="hand-img" />
+          <img src="{{ asset('storage/pets/' . $slug . '/image/main/button/hand-p.webp') }}" alt="握手" class="hand-img" />
         </div>
       </div>
       <div class="main-bobs-buttons" data-aos="scale-class" data-aos-delay="350" data-aos-offset="120">
