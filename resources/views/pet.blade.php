@@ -435,8 +435,8 @@
       </div>
       <div class="main-bobs-buttons" data-aos="scale-class" data-aos-delay="350" data-aos-offset="120">
         <!-- 按鈕將由 JavaScript 根據隨機選取的 bubble_videos 動態創建 -->
-        <button class="mute-feed" id="muteBtn">
-          <!-- <img src="{{ asset('storage/pets/image/volume-xmark-solid.svg') }}" alt="聲音開關" /> -->
+        <button class="mute-feed" id="muteBtn" style="visibility: hidden; opacity: 0;">
+          <img src="{{ asset('storage/pets/image/volume-xmark-solid.svg') }}" alt="聲音開關" /> 
         </button>
         <audio muted id="handAudio" src="{{ asset('storage/pets/' . $slug . '/audio/hand.mp3') }}"></audio>
         <audio muted id="feedAudio" src="{{ asset('storage/pets/' . $slug . '/audio/feed.mp3') }}"></audio>

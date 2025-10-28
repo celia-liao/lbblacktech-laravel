@@ -77,7 +77,6 @@ function removeLoading() {
     if (typeof observeCounters === "function") {
       observeCounters();
     } else {
-      // console.warn("observeCounters 函數未定義。");
     }
   });
 }

@@ -87,12 +87,6 @@ function createSlides(group) {
 
 // 確保變數已準備就緒
 if (window.corridor_images && window.corridor_videos && window.pictureNum) {
-  console.log('記憶迴廊數據:', {
-    封面圖數量: window.corridor_images.length,
-    媒體數量: window.corridor_videos.length,
-    封面圖: window.corridor_images,
-    媒體: window.corridor_videos
-  });
   createSlides("group-1");
 } else {
   console.error('記憶迴廊變數未準備就緒:', {

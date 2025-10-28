@@ -165,8 +165,8 @@ muteBtn.addEventListener("click", () => {
   videoElement.muted = !videoElement.muted;
 
   muteBtnImg.src = videoElement.muted
-    ? `/storage/pets/image/volume-xmark-solid.svg`
-    : `/storage/pets/image/volume-high-solid.svg`;
+    ? `${window.PET_ASSETS.imagePath}/volume-xmark-solid.svg`
+    : `${window.PET_ASSETS.imagePath}/volume-high-solid.svg`;
 });
 
 
@@ -271,8 +271,9 @@ if (false && feedBtn) {
 
 if (handBtn) {
   handBtn.addEventListener("click", () => {
-  muteBtn.style.visibility = "unset";
-  muteBtn.style.opacity = 1;
+  // muteBtn 的顯示邏輯已移至事件委托中處理
+  // muteBtn.style.visibility = "unset";
+  // muteBtn.style.opacity = 1;
   if (currentAction === "hand") return;
   stopCurrentAction();
   currentAction = "hand";
@@ -563,7 +564,6 @@ function initializeLifeSlides() {
   
   
   if (!lifeAllSlide || lifeAllSlide.length === 0) {
-    console.log('生命軌跡尚未生成，等待中...');
     // 如果還沒有生成，等待一下再試
     setTimeout(initializeLifeSlides, 500);
     return;
@@ -888,24 +888,52 @@ document.addEventListener("touchmove", (e) => {
 window.addEventListener("resize", refreshBob);
 window.addEventListener("load", refreshBob);
 
-// 動態按鈕事件委托 - 處理隨機選取的影片按鈕
+// 動態按鈕事件委托 - 處理寵物按鈕
 document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("feed") && e.target.dataset.videoIndex !== undefined) {
+  if ((e.target.classList.contains("feed") || e.target.classList.contains("hand")) && e.target.dataset.buttonId !== undefined) {
     const button = e.target;
-    const videoIndex = parseInt(button.dataset.videoIndex);
-    const videoSrc = button.dataset.videoSrc;
+    const buttonType = button.dataset.buttonType;
+    const mediaPath = button.dataset.mediaPath;
     const videoRatio = button.dataset.videoRatio;
     const videoSound = button.dataset.videoSound === 'true';
         
-    if (muteBtn) {
-      muteBtn.style.visibility = "visible";
-      muteBtn.style.opacity = 1;
-    }
+    // mute 按鈕的顯示狀態已在頁面載入時根據所有影片按鈕的 sound 設定決定
+    // 這裡不需要重新設定 mute 按鈕的顯示狀態
     
-    if (currentAction === "feed") return;
+    if (currentAction === "feed" || currentAction === "hand") return;
     stopCurrentAction();
-    currentAction = "feed";
+    currentAction = buttonType === "image" ? "hand" : "feed";
 
+    // 處理圖片按鈕
+    if (buttonType === "image") {
+      if (bobsImgHand) {
+        bobsImgHand.src = `${window.PET_ASSETS.imagePath}/main/button/${mediaPath}`;
+        bobsImgHand.style.animation = `animation-hand-up 2.8s linear 0s`;
+      }
+
+      if (!isMuted && handAudio) {
+        handAudio.currentTime = 0;
+        handAudio.play();
+      }
+
+      if (bobsImg) {
+        bobsImg.style.opacity = `1`;
+        bobsImg.src = `${window.PET_ASSETS.imagePath}/main/interaction/heart.gif?${new Date().getTime()}`;
+      }
+
+      if (window.innerWidth <= 768) {
+        if (bobsArea) bobsArea.style.zIndex = 6;
+      } else {
+        if (bobsArea) bobsArea.style.zIndex = ``;
+      }
+
+      timeoutId = setTimeout(() => {
+        stopCurrentAction();
+      }, 3200);
+      return;
+    }
+
+    // 處理影片按鈕
     if (bobsVideoArea) {
       bobsVideoArea.style.display = "flex";
       requestAnimationFrame(() => {
@@ -926,11 +954,22 @@ document.addEventListener("click", (e) => {
         }
       }
       
-      // 設置聲音
-      bobsVideo.muted = !videoSound;
+      // 設置聲音 - 根據 mute 按鈕的當前狀態設定
+      if (muteBtn && muteBtn.style.visibility === "visible") {
+        // 如果 mute 按鈕顯示，檢查按鈕圖標來決定靜音狀態
+        const muteBtnImg = muteBtn.querySelector('img');
+        if (muteBtnImg) {
+          const isCurrentlyMuted = muteBtnImg.src.includes('volume-xmark-solid.svg');
+          bobsVideo.muted = isCurrentlyMuted;
+        } else {
+          bobsVideo.muted = true; // 預設靜音
+        }
+      } else {
+        bobsVideo.muted = true; // 如果 mute 按鈕隱藏，預設靜音
+      }
       
       // 設置影片來源並播放
-      bobsVideo.src = videoSrc;
+      bobsVideo.src = `${window.PET_ASSETS.imagePath}/main/button/${mediaPath}`;
       bobsVideo.currentTime = 0;
       bobsVideo.load(); // 確保載入新的影片
       
@@ -956,10 +995,11 @@ document.addEventListener("click", (e) => {
       };
     }
 
-    if (!isMuted && feedAudio) {
-      feedAudio.currentTime = 0;
-      feedAudio.play();
-    }
+    // 影片按鈕不播放額外的音效，只使用影片本身的聲音
+    // if (!isMuted && feedAudio && videoSound) {
+    //   feedAudio.currentTime = 0;
+    //   feedAudio.play();
+    // }
 
     if (window.innerWidth <= 768) {
       if (bobsArea) bobsArea.style.zIndex = 6;

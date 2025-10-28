@@ -221,105 +221,6 @@ async function getVideoGallery(data) {
     } else {
         window.header_videos = [];
     }
-    
-    // 檢查 bubble videos 是否存在
-    if (!data.videos.bubble) {
-        console.error('data.videos.bubble 不存在');
-        return;
-    }
-    
-    // 將 bubble 轉換為陣列（如果它是物件）
-    let bubbleArray = data.videos.bubble;
-    if (!Array.isArray(bubbleArray)) {
-        // 如果是物件，轉換為陣列
-        if (typeof bubbleArray === 'object' && bubbleArray !== null) {
-            bubbleArray = Object.values(bubbleArray);
-        } else {
-            console.error('data.videos.bubble 無法轉換為陣列');
-            return;
-        }
-    }
-    
-    // 所有可用的 bubble videos
-    const allBubbleVideos = bubbleArray.map(video => {
-        return {
-            src: `${getImageBasePath()}/main/interaction/photo/${video.video_path}`,
-            text: video.text,
-            ratio: video.ratio,
-            sound: video.sound,
-        }
-    })
-    
-    // 隨機選取兩個不同的影片
-    window.bubble_videos = selectRandomVideos(allBubbleVideos, 2);
-    
-    // 根據選取的影片創建按鈕
-    createDynamicButtons();
-}
-
-// 隨機選取指定數量的不同影片
-function selectRandomVideos(videos, count) {
-    if (!videos || videos.length === 0) {
-        return [];
-    }
-    
-    // 如果影片數量少於需要的數量，返回所有影片
-    if (videos.length <= count) {
-        return [...videos];
-    }
-    
-    // 隨機打亂並選取前 count 個
-    const shuffled = [...videos].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
-}
-
-// 根據選取的影片創建按鈕
-function createDynamicButtons() {
-    if (!window.bubble_videos || window.bubble_videos.length === 0) {
-        return;
-    }
-    
-    const buttonsContainer = document.querySelector('.main-bobs-buttons');
-    if (!buttonsContainer) {
-        return;
-    }
-    
-    // 清除現有的 feed 和 hand 按鈕
-    const existingButtons = buttonsContainer.querySelectorAll('button.feed, button.hand');
-    existingButtons.forEach(button => button.remove());
-    
-    // 根據選取的影片創建按鈕
-    window.bubble_videos.forEach((video, index) => {
-        const button = document.createElement('button');
-        // 所有按鈕都使用 feed 類名
-        button.className = 'feed';
-        button.textContent = video.text;
-        button.dataset.videoIndex = index; // 儲存影片索引
-        button.dataset.videoSrc = video.src;
-        button.dataset.videoRatio = video.ratio;
-        button.dataset.videoSound = video.sound;
-        
-        // 為第一個和第二個按鈕設定顏色
-        if (index === 0 && window.handshake_button) {
-            button.style.backgroundColor = window.handshake_button;
-            button.style.outlineColor = window.handshake_button;
-            button.style.outline = `5px solid ${window.handshake_button}`;
-            button.style.border = `2px solid #fedfd1`;
-        } else if (index === 1 && window.videos_button) {
-            button.style.backgroundColor = window.videos_button;
-            button.style.outlineColor = window.videos_button;
-            button.style.outline = `5px solid ${window.videos_button}`;
-            button.style.border = `2px solid #fedfd1`;
-        }
-        
-        // 插入到 mute 按鈕之前
-        const muteBtn = buttonsContainer.querySelector('.mute-feed');
-        if (muteBtn) {
-            buttonsContainer.insertBefore(button, muteBtn);
-        } else {
-            buttonsContainer.appendChild(button);
-        }
-    });
 }
 
 async function getPet(data) {
@@ -345,11 +246,107 @@ async function getPet(data) {
     }
 }
 
+// 按鈕資料
+async function getPetButtons(data) {
+    const petButtons = data.pet_buttons;
 
+    if (!petButtons || petButtons.length === 0) {
+        return;
+    }
+
+    const buttonsContainer = document.querySelector('.main-bobs-buttons');
+    if (!buttonsContainer) {
+        return;
+    }
+
+    // 清除現有的按鈕（保留 mute 按鈕）
+    const existingButtons = buttonsContainer.querySelectorAll('button:not(.mute-feed)');
+    existingButtons.forEach(button => button.remove());
+
+    // 如果陣列裡有圖片就這樣創建一個圖片按鈕＋一個影片按鈕
+    if (petButtons.some(button => button.button_type === 'image')) {
+        const imageButtonData = petButtons.find(button => button.button_type === 'image');
+        const imageButton = document.createElement('button');
+        imageButton.className = 'hand';
+        imageButton.innerHTML = imageButtonData.button_text;
+        imageButton.dataset.buttonId = imageButtonData.button_id;
+        imageButton.dataset.buttonType = 'image';
+        imageButton.dataset.mediaPath = imageButtonData.media_path;
+        buttonsContainer.appendChild(imageButton);
+
+        // 從所有影片按鈕中隨機挑選一個
+        const videoButtons = petButtons.filter(button => button.button_type === 'video');
+        if (videoButtons.length > 0) {
+            const randomIndex = Math.floor(Math.random() * videoButtons.length);
+            const videoButtonData = videoButtons[randomIndex];
+            
+            const videoButton = document.createElement('button');
+            videoButton.className = 'feed';
+            videoButton.innerHTML = videoButtonData.button_text;
+            videoButton.dataset.buttonId = videoButtonData.button_id;
+            videoButton.dataset.buttonType = 'video';
+            videoButton.dataset.mediaPath = videoButtonData.media_path;
+            videoButton.dataset.videoRatio = videoButtonData.ratio;
+            videoButton.dataset.videoSound = videoButtonData.sound;
+            buttonsContainer.appendChild(videoButton);
+        }
+    }
+    // 如果陣列裡面全是影片就隨便挑兩個影片做成影片按鈕
+    else if (petButtons.every(button => button.button_type === 'video')) {
+        const videoButtons = petButtons.sort(() => 0.5 - Math.random()).slice(0, 2);
+        videoButtons.forEach(buttonData => {
+            const videoButton = document.createElement('button');
+            videoButton.className = 'feed';
+            videoButton.innerHTML = buttonData.button_text;
+            videoButton.dataset.buttonId = buttonData.button_id;
+            videoButton.dataset.buttonType = 'video';
+            videoButton.dataset.mediaPath = buttonData.media_path;
+            videoButton.dataset.videoRatio = buttonData.ratio;
+            videoButton.dataset.videoSound = buttonData.sound;
+            buttonsContainer.appendChild(videoButton);
+        });
+    }
+
+    // 根據當前顯示的影片按鈕的 sound 設定來初始化 mute 按鈕狀態
+    const muteBtn = document.querySelector("#muteBtn");
+    if (muteBtn) {
+        // 檢查當前顯示的影片按鈕是否有聲音
+        const displayedVideoButtons = buttonsContainer.querySelectorAll('button.feed[data-video-sound]');
+        let hasVideoWithSound = false;
+        
+        displayedVideoButtons.forEach(button => {
+            const videoSound = button.dataset.videoSound === 'true';
+            if (videoSound) {
+                hasVideoWithSound = true;
+            }
+        });
+        
+        if (hasVideoWithSound) {
+            // 有影片有聲音，顯示靜音圖標（因為影片一開始是靜音的）
+            muteBtn.style.visibility = "visible";
+            muteBtn.style.opacity = 1;
+            const muteBtnImg = muteBtn.querySelector('img');
+            if (muteBtnImg) {
+                muteBtnImg.src = `${window.PET_ASSETS.imagePath}/volume-xmark-solid.svg`;
+            }
+        } else {
+            // 沒有影片有聲音，隱藏 mute 按鈕
+            muteBtn.style.visibility = "hidden";
+            muteBtn.style.opacity = 0;
+        }
+    }
+}
 
 
 async function initializePetWebsite() {
     try {
+        // 初始化時隱藏 mute 按鈕
+        const muteBtn = document.querySelector("#muteBtn");
+        if (muteBtn) {
+            muteBtn.style.visibility = "hidden";
+            muteBtn.style.opacity = 0;
+        }
+        
         // loading 已在 HTML 中初始化，直接開始載入資料
         const data = await fetchPetData();
         
@@ -360,7 +357,8 @@ async function initializePetWebsite() {
         await getVideoGallery(data);
         await getPhotoGallery(data);
         await getPet(data);
-        
+        await getPetButtons(data);
+
         await import(window.PET_ASSETS.jsFiles.day);
         await import(window.PET_ASSETS.jsFiles.newScroll);
         await import(window.PET_ASSETS.jsFiles.lifeSlides);

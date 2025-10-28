@@ -10,6 +10,7 @@ use App\Models\PetVideo;
 use App\Models\TimelineEvent;
 use App\Models\Letter;
 use App\Models\LifeSlide;
+use App\Models\PetButton;
 use Illuminate\Http\JsonResponse;
 
 class PetDataController extends Controller
@@ -39,6 +40,7 @@ class PetDataController extends Controller
             ->get();
         $letter = Letter::where('pet_id', $pet->pet_id)->first();
         $lifeSlides = LifeSlide::where('pet_id', $pet->pet_id)->where('is_active', true)->get();
+        $petButtons = PetButton::where('pet_id', $pet->pet_id)->where('is_active', true)->get();
 
         // 整理照片資料
         $photos = [
@@ -53,22 +55,6 @@ class PetDataController extends Controller
                 return [
                     'video_path' => $video->video_path,
                     'category' => $video->category,
-                ];
-            })->toArray(),
-            'bubble' => $petVideos->where('category', 'bubble')->map(function($video) {
-                return [
-                    'video_path' => $video->video_path,
-                    'text' => $video->text,
-                    'ratio' => $video->ratio,
-                    'sound' => $video->sound,
-                ];
-            })->toArray(),
-            'corridor' => $petVideos->where('category', 'corridor')->map(function($video) {
-                return [
-                    'video_path' => $video->video_path,
-                    'text' => $video->text,
-                    'ratio' => $video->ratio,
-                    'sound' => $video->sound,
                 ];
             })->toArray(),
         ];
@@ -91,6 +77,18 @@ class PetDataController extends Controller
             return [
                 'life_slide_image' => $slide->life_slide_image,
                 'life_slide_media' => $slide->life_slide_media,
+            ];
+        })->toArray();
+
+        // 整理按鈕資料
+        $petButtons = $petButtons->map(function($button) {
+            return [
+                'button_id' => $button->button_id,
+                'button_text' => $button->button_text,
+                'button_type' => $button->button_type,
+                'media_path' => $button->media_path,
+                'ratio' => $button->ratio,
+                'sound' => $button->sound,
             ];
         })->toArray();
 
@@ -132,6 +130,7 @@ class PetDataController extends Controller
                 'letter_content' => $letter->letter_content,
             ] : null,
             'life_slides' => $lifeSlides,
+            'pet_buttons' => $petButtons,
         ];
 
         return response()->json([

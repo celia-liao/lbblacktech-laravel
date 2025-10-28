@@ -275,7 +275,6 @@ function scrollToBottomWithFixedSpeed(remainingDistance = null) {
         window.scrollY < mainLifeBottom &&
         !hasScrolledMainLife
       ) {
-        // console.log("手機版：main-life-scroll-container 滾動至畫面中心，開始內部滾動");
         stopScrollAnimation();
         scrollMainLifeContent(distance * (1 - progress));
         return;
@@ -286,7 +285,6 @@ function scrollToBottomWithFixedSpeed(remainingDistance = null) {
         window.scrollY < mainLifeBottom &&
         !hasScrolledMainLife
       ) {
-        // console.log("桌面版：main-life-scroll-container 滾動至畫面中心，開始內部滾動");
         stopScrollAnimation();
         scrollMainLifeContent(distance * (1 - progress));
         return;
@@ -310,7 +308,6 @@ function scrollMainLifeContent(remainingDistance) {
   // 根據設備類型選擇正確的滾動容器
   const targetContainer = isMobile ? mainLifeScrollContainerSlides : mainLifeScrollContainer;
 
-  // console.log("scrollMainLifeContent 被調用，targetContainer:", targetContainer);
 
   if (!targetContainer) {
     console.error("滾動容器不存在！");
@@ -393,13 +390,6 @@ function scrollMainLifeContent(remainingDistance) {
     const remainingScrollHeight = scrollHeight - savedInnerScrollProgress;
     const duration = remainingScrollHeight / FIXED_SCROLL_SPEED_LIFE;
 
-    // console.log("電腦版滾動參數:", {
-    //   scrollHeight: scrollHeight,
-    //   clientHeight: targetContainer.clientHeight,
-    //   savedInnerScrollProgress: savedInnerScrollProgress,
-    //   remainingScrollHeight: remainingScrollHeight,
-    //   duration: duration
-    // });
 
     let startTime = performance.now();
 

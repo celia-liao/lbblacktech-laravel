@@ -32,8 +32,6 @@ if (typeof window.startDateStr !== "undefined") {
     if (calendarDayText) {
         calendarDayText.textContent = `${diffDays}`;
     }
-} else {
-    console.log("footer-slogan.js: startDateStr 未定義，跳過日期計算");
 }
 
 const footerConclusion = document.querySelector(".footer-conclusion");

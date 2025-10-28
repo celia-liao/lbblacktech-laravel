@@ -9,36 +9,7 @@ function hexToRgba(hex, alpha) {
     let b = bigint & 255;
     return `rgba(${r},${g},${b},${alpha})`;
   }
-    // 隨機選取一個影片
-    const randomIndex = Math.floor(Math.random() * bubble_videos.length);
-    const selectedVideo = bubble_videos[randomIndex];
-  
-    document.dispatchEvent(new CustomEvent("videoSelected", { detail: selectedVideo }));
-  
-    // 設置影片
-    const videoElement = document.querySelector(".main-video-area video");
-    videoElement.src = selectedVideo.src;
-  
-    // 更新按鈕文字
-    const feedButton = document.querySelector(".main-bobs-buttons .feed");
-    feedButton.textContent = selectedVideo.text;
-  
-  
-    const videoArea = document.querySelector(".main-video-area");
-    if (selectedVideo.ratio) {
-      videoArea.classList.add(selectedVideo.ratio);
-    }
-  
-    const muteBtn = document.getElementById("muteBtn");
-    if (muteBtn) {
-      if (selectedVideo.sound) {
-        muteBtn.style.display = "block"; // 有聲音時顯示
-      } else {
-        muteBtn.style.display = "none"; // 無聲時隱藏
-      }
-    }
 
-  
   
   function i() {
     var canvas,

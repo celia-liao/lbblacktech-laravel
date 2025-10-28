@@ -97,6 +97,9 @@ class Pet extends Resource
        
             // ⭐ 掛載 Pet Video
             HasMany::make('Pet Video', 'petVideos', \App\Nova\PetVideo::class),
+
+            // ⭐ 掛載 Pet Button
+            HasMany::make('Pet Button', 'petButtons', \App\Nova\PetButton::class),
         ];
     }
 

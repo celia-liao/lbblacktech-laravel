@@ -33,6 +33,7 @@ trait StoresPetImages
             'background' => "image/main/life/background",
             'photo'      => "image/main/life/photo",
             'original'   => "image/main/life/photo/original",
+            'button'     => "image/main/button",
             default      => "uploads",
         };
 
@@ -162,15 +163,16 @@ trait StoresPetImages
         return asset("storage/pets/{$slug}/{$subPath}/{$filename}");
     }
 
-    public function storePetVideo(UploadedFile $file): string
+    public function storePetVideo(UploadedFile $file, string $type = null): string
     {
         // 從關聯的 Pet 取得 slug，如果沒有就用 default
         $slug = $this->pet->website_slug ?? 'default';
 
-        // 根據 category 決定子路徑
-        $subPath = match ($this->category) {
+        // 根據 type 參數或 category 決定子路徑
+        $subPath = match ($type ?? $this->category ?? 'default') {
             'header' => "image/header/photo",
             'bubble' => "image/main/interaction/photo",
+            'button' => "image/main/button",
             default => "image/main/interaction/photo",
         };
 

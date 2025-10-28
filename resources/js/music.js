@@ -101,7 +101,6 @@ if (handButton) {
 
 document.addEventListener("videoSelected", (event) => {
   const selectedVideo = event.detail;
-  // console.log("影片資料：", selectedVideo);
 
   const videoElement = document.querySelector(".main-video-area video");
 

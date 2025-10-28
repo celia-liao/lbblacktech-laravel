@@ -31,7 +31,7 @@ class PetVideo extends Model
     protected static function booted()
     {
         static::saving(function ($video) {
-            $request = request(); // ✅ 避免 CLI 出錯
+            $request = request(); // 避免 CLI 出錯
 
             if ($request && $request->hasFile('video_path')) {
                 $video->video_path = $video->storePetVideo($request->file('video_path'));
