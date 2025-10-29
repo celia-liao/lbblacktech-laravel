@@ -11,3 +11,7 @@ Route::get('/user', function (Request $request) {
 Route::get('pet-data/{slug}', [PetDataController::class, 'getPetData']);
 Route::get('pet-data-by-id/{petId}', [PetDataController::class, 'getPetDataById']);
 Route::get('pet-id-by-line-user/{lineUserId}', [PetDataController::class, 'getPetIdByLineUserId']);
+
+// 寵物小語相關API
+Route::get('pet-whisper/random', [\App\Http\Controllers\Api\PetWhisperController::class, 'getRandomWhisper']);
+Route::get('pet-whisper/list', [\App\Http\Controllers\Api\PetWhisperController::class, 'getPetWhispers']);

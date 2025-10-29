@@ -63,6 +63,11 @@ class Pet extends Model
         return $this->hasOne(\App\Models\WebsiteStyle::class, 'pet_id'); 
     }
 
+    public function petWhispers()
+    {
+        return $this->hasMany(\App\Models\PetWhisper::class, 'pet_id', 'pet_id');
+    }
+
     /**
      * 獲取寵物個性的完整資訊
      * 

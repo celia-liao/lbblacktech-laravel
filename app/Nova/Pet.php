@@ -101,6 +101,9 @@ class Pet extends Resource
             // ⭐ 掛載 Pet Video
             HasMany::make('Pet Video', 'petVideos', \App\Nova\PetVideo::class),
 
+            // ⭐ 掛載 Pet Whisper
+            HasMany::make('Pet Whisper', 'petWhispers', \App\Nova\PetWhisper::class),
+
             
         ];
     }
@@ -142,6 +145,8 @@ class Pet extends Resource
      */
     public function actions(NovaRequest $request): array
     {
-        return [];
+        return [
+            new \App\Nova\Actions\GenerateBreedWhispers,
+        ];
     }
 }
