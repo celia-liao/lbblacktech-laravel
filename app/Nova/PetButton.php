@@ -76,16 +76,48 @@ class PetButton extends Resource
             // 根據按鈕類型顯示不同的檔案上傳欄位
             Image::make('Image File', 'media_path')
                 ->disk('public')
-                ->path('pets/images')
+                ->thumbnail(function () {
+                    if (!$this->media_path || !$this->pet) return null;
+                    $slug = $this->pet->website_slug ?? 'default';
+                    return asset("storage/pets/{$slug}/image/main/button/{$this->media_path}");
+                })
+                ->preview(function () {
+                    if (!$this->media_path || !$this->pet) return null;
+                    $slug = $this->pet->website_slug ?? 'default';
+                    return asset("storage/pets/{$slug}/image/main/button/{$this->media_path}");
+                })
+                ->download(function () {
+                    if (!$this->media_path || !$this->pet) return null;
+                    $slug = $this->pet->website_slug ?? 'default';
+                    return asset("storage/pets/{$slug}/image/main/button/{$this->media_path}");
+                })
+                ->resolveUsing(function ($value, $model) {
+                    return $model->button_type === 'image' ? $value : null;
+                })
                 ->help('上傳圖片檔案（僅圖片按鈕使用）')
                 ->dependsOn('button_type', 'image'),
             
             File::make('Video File', 'media_path')
                 ->disk('public')
-                ->path('pets/videos')
                 ->acceptedTypes('.mp4,.webm,.mov')
+                ->download(function () {
+                    if (!$this->media_path || !$this->pet) return null;
+                    $slug = $this->pet->website_slug ?? 'default';
+                    return asset("storage/pets/{$slug}/image/main/button/{$this->media_path}");
+                })
+                ->resolveUsing(function ($value, $model) {
+                    return $model->button_type === 'video' ? $value : null;
+                })
+                ->showOnDetail()
                 ->help('上傳影片檔案（僅影片按鈕使用）')
                 ->dependsOn('button_type', 'video'),
+
+            // 列表頁顯示影片檔名
+            Text::make('Video File', 'media_path')
+                ->resolveUsing(function ($value, $model) {
+                    return $model->button_type === 'video' ? $value : null;
+                })
+                ->onlyOnIndex(),
             
             // 影片專用設定
             Select::make('Video Ratio', 'ratio')
