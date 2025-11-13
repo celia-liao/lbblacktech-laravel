@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>毛小孩紀念網站 - {{ $pet->pet_name }}</title>
-    <link rel="shortcut icon" href="{{ asset('storage/pets/image/logo.svg') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     <!-- META -->
     <meta name="keywords" content="信念科技有限公司 FT, 信念科技有限公司, FT, TBT, 寵物, 狗狗, 貓咪, 毛小孩, 浪浪, 寵物紀念, 寵物過世, 寵物葬儀, 紀念網站, 寵物紀念網站" />
