@@ -149,13 +149,13 @@ body {
   }
 }
 .loading-overlay .logo {
-  width: 70px;
+  width: 180px;
   position: absolute;
   bottom: 8%;
 }
 @media screen and (max-width: 768px) {
   .loading-overlay .logo {
-    width: 60px;
+    width: 150px;
     bottom: 25%;
   }
 }

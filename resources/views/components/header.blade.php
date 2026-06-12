@@ -2,7 +2,7 @@
   <nav>
     <!-- id="messenger-link" -->
     <a id="dynamic-link" href="https://lbblacktech.com/form-landing-page" target="_blank" class="nav-logo">
-      <img src="{{ asset('storage/pets/image/logo_blue.webp') }}" alt="信念科技有限公司-logo" />
+      <img src="{{ asset('assets/images/logotype.svg') }}" alt="信念科技有限公司-logo" />
     </a>
   </nav>
   <section class="main-img">

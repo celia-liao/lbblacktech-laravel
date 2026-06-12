@@ -10,6 +10,6 @@
   </div>
   <div class="slogan">信念科技•全球首創</div>
   <div class="logo">
-    <img src="{{ asset('storage/pets/image/logo-white.svg') }}" alt="logo" />
+    <img src="{{ asset('assets/images/logotype.svg') }}" alt="logo" />
   </div>
 </section>
